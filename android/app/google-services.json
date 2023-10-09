@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "400047673953",
+    "project_id": "inspection-app-flutter",
+    "storage_bucket": "inspection-app-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:400047673953:android:1b9a2aa443790315df9020",
+        "android_client_info": {
+          "package_name": "com.example.inspection_app_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkm2RKaCgrV3BHTChtfHVXcAevCpTncjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
