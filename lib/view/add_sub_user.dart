@@ -177,7 +177,7 @@ class _AddSubUserState extends State<AddSubUser> {
                         );
                       } else {
                         await addInspectorModel.insertInspectorData(family_name.text, mobileNumber.text, context);
-                        Navigator.pushReplacementNamed(context, AppRoutes.LoginPage);
+                        Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
                       }
                     }
                   },

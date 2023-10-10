@@ -1,23 +1,24 @@
-/* import 'package:flutter/material.dart';
-
-import '../constants/app_constants.dart';
+import 'package:flutter/material.dart';
+import 'package:inspection_app_flutter/res/constants/app_colors.dart';
 
 class CustomWarningAlert extends StatefulWidget {
   final String descriptions;
-  final String? Buttontext;
+  final String version;
+  final void Function() onPressed;
+  final void Function() onPressed1;
   final String Img;
   final Color? imagebg;
   final Color? bgColor;
-  final void Function()? onPressed;
 
   const CustomWarningAlert({
     Key? key,
     required this.descriptions,
-    this.Buttontext,
     required this.onPressed,
     this.bgColor,
     required this.Img,
     this.imagebg,
+    required this.onPressed1,
+    required this.version,
   }) : super(key: key);
 
   @override
@@ -41,12 +42,13 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
     return Stack(
       children: <Widget>[
         Container(
+          width: MediaQuery.of(context).size.width * 0.7,
           padding: EdgeInsets.only(left: 10, top: 50, right: 10, bottom: 10),
           margin: EdgeInsets.only(top: 30),
           decoration: BoxDecoration(
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.circular(0.0),
-              color: AppColors.white,
+              color: AppColors.textcolorwhite,
               boxShadow: [
                 BoxShadow(
                     color: Colors.black, offset: Offset(0, 10), blurRadius: 10),
@@ -55,7 +57,7 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Text(
-                'Version: ${AppConstants.version_number}',
+                'Version: ${widget.version}',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14),
               ),
@@ -63,7 +65,7 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
                 height: 10,
               ),
               Text(
-                AppStrings.appName,
+                "Inspection App",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
@@ -78,30 +80,36 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
               SizedBox(
                 height: 8,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.07,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      gradient: LinearGradient(colors: [
-                        AppColors.PRIMARY_COLOR_LIGHT,
-                        AppColors.PRIMARY_COLOR_DARK,
-                      ])),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.orange,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Ok",
-                      style: TextStyle(fontSize: 16),
-                    ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            //minimumSize: MaterialStateProperty.all(Size(22, 50)),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red)),
+                        onPressed: widget.onPressed,
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(fontSize: 18),
+                        )),
                   ),
-                ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.25,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            //minimumSize: MaterialStateProperty.all(Size(22, 50)),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green)),
+                        onPressed: widget.onPressed1,
+                        child: Text(
+                          "Done",
+                          style: TextStyle(fontSize: 18),
+                        )),
+                  ),
+                ],
               ),
             ],
           ),
@@ -112,15 +120,15 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: CircleAvatar(
-              backgroundColor: widget.imagebg ?? Colors.white,
+              backgroundColor: Color.fromARGB(255, 93, 2, 20),
               radius: 35,
               child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(45)),
                   child: Image.asset(
-          widget.Img,
-          fit: BoxFit.cover,
-        )),
-                  /* Image.asset(
+                    widget.Img,
+                    fit: BoxFit.cover,
+                  )),
+              /* Image.asset(
                     widget.Img,
                     // width: 100, height: 100,
                     fit: BoxFit.cover,
@@ -132,4 +140,3 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
     );
   }
 }
- */

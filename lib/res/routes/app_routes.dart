@@ -3,13 +3,13 @@ class AppRoutes {
   static const initial = splash;
   static const splash = "/splash";
   static const LoginPage = "/LoginPage";
-  static const dashboardScreen = "/dashboardScreen";
+  static const DashboardView = "/DashboardView";
   static const setMpinPage = "/setMpinPage";
   static const mpinValidate = "/mpinValidate";
   static const ResetMpin = "/ResetMpin";
   static const AddSubUser = "/AddSubUser";
-  // static const attendance = "/Attendance";
-  // static const ApplyLeave = "/ApplyLeave";
+  static const AddQuestions = "/AddQuestions";
+  static const FoodSurvey = "/FoodSurvey";
   // static const RaiseGrievance = "/RaiseGrievance";
   // static const LeaveReport = "/LeaveReport";
   // static const GrievanceReport = "/GrievanceReport";

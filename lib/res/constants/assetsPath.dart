@@ -6,7 +6,7 @@ class AssetPath {
   static const String alertsIcon = "assets/alertsIcon.png";
   static const String addPrescriptionIcon = "assets/addPrescriptionIcon.png";
   static const String viewMedicineIcon = "assets/viewMedicineIcon.png";
-  static const String footer = "assets/footer.png";
+  static const String footer_png = "assets/footer.png";
   static const String Background = "assets/background_bg.png";
   static const String PlusIcon = "assets/plus.svg";
   static const String Pdf_Svg = "assets/pdf.svg";

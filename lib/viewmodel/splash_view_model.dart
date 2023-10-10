@@ -160,14 +160,18 @@ class SplashViewModel extends ChangeNotifier {
 
   navigationflow(context) async {
     String? MPIN = await LocalStoreHelper().readTheData("mpin") ?? '';
+    print("mpin is $MPIN");
+    String? mobileNumber = await LocalStoreHelper().readTheData("mobileNumber") ?? '';
+    print("mobileNumber is $mobileNumber");
 
-    if (MPIN!.isNotEmpty) {
+    if (MPIN!.isNotEmpty && MPIN != "-") {
       Navigator.pushNamed(context, AppRoutes.mpinValidate);
     }
     // else if (RegFamCount == 0) {
     //   print("loginifsdfsdf");
     //   Navigator.pushNamed(context, AppRoutes.registraion);
     // }
+    
     else {
       Navigator.pushNamed(context, AppRoutes.LoginPage);
     }

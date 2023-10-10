@@ -71,7 +71,8 @@ class _LoginPageState extends State<LoginPage> {
                       int count = await loginViewModel.loginCount(
                           _mobile.text, context);
                       print("count is $count");
-                    };
+                    }
+                    ;
                     //Navigator.pushNamed(context, AppRoutes.mpinValidate);
                   },
                   buttonText: "LOGIN"),

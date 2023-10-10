@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
+import 'package:inspection_app_flutter/view/add_questions.dart';
 import 'package:inspection_app_flutter/view/add_sub_user.dart';
+import 'package:inspection_app_flutter/view/dashboard_view.dart';
+import 'package:inspection_app_flutter/view/food_survey.dart';
 import 'package:inspection_app_flutter/view/login.dart';
 import 'package:inspection_app_flutter/view/setMpin.dart';
 import 'package:inspection_app_flutter/view/mpin_validate.dart';
@@ -16,9 +19,9 @@ class AppPages {
       AppRoutes.mpinValidate: ((context) => mpinValidate()),
       AppRoutes.ResetMpin: ((context) => ResetMpin()),
       AppRoutes.AddSubUser: ((context) => AddSubUser()),
-      //   AppRoutes.setMpin: ((context) => SetMpin()),
-      //   AppRoutes.validateOtp: ((context) => ValidateOtp()),
-      //   AppRoutes.attendance: ((context) => Attendance()),
+      AppRoutes.DashboardView: ((context) => DashboardView()),
+      AppRoutes.AddQuestions: ((context) => AddQuestions()),
+      AppRoutes.FoodSurvey: ((context) => FoodSurvey()),
       //   AppRoutes.ApplyLeave: ((context) => ApplyLeave()),
       //   AppRoutes.RaiseGrievance: ((context) => RaiseGrievance()),
       //   AppRoutes.LeaveReport: ((context) => LeaveReport()),

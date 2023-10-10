@@ -73,7 +73,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
       resizeToAvoidBottomInset: widget.resize,
       bottomSheet: widget.bottomSheetVis == true
           ? Image.asset(
-              AssetPath.footer,
+              AssetPath.footer_png,
               width: double.infinity,
               height: 40,
             )
@@ -95,7 +95,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                 actions: [
                   IconButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.dashboardScreen);
+                        Navigator.pushNamed(context, AppRoutes.DashboardView);
                         //ProviderForPropertyTax.navigate(context, AppRoutes.dashboard);
                       },
                       icon: Icon(

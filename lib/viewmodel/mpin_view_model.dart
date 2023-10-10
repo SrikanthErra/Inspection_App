@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/data/local_store_helper.dart';
 import 'package:inspection_app_flutter/res/app_alerts/SuccessCutomAlerts.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
+import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 
 class MpinViewModel extends ChangeNotifier {
@@ -111,8 +112,6 @@ class MpinViewModel extends ChangeNotifier {
                     Navigator.pushReplacementNamed(
                         context, AppRoutes.LoginPage);
                     //getdata(_mpin.text);
-                    
-                    
                   },
                 );
               });
@@ -163,8 +162,17 @@ class MpinViewModel extends ChangeNotifier {
 
   mpinValidateLoginCall(String mpin, context) async {
     String Mpin = await LocalStoreHelper().readTheData("mpin");
+    String memberType = await LocalStoreHelper().readTheData("memberType");
+    if (memberType == "Admin") {
+      AppConstants.adminFlag = true;
+      AppConstants.inspectorFlag = false;
+    }
+    if (memberType == "Inspector") {
+      AppConstants.adminFlag = false;
+      AppConstants.inspectorFlag = true;
+    }
     if (Mpin == mpin) {
-      Navigator.pushReplacementNamed(context, AppRoutes.dashboardScreen);
+      Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
     } else {
       showDialog(
           context: context,

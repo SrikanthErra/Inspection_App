@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:inspection_app_flutter/res/routes/app_pages.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/viewmodel/add_inspector_view_model.dart';
+import 'package:inspection_app_flutter/viewmodel/add_questions_viewModel.dart';
+import 'package:inspection_app_flutter/viewmodel/food_survey_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/login_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/mpin_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/splash_view_model.dart';
@@ -46,6 +48,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => AddInspectorViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => AddQuestionViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FoodSurveyViewModel(),
         ),
       ],
       child: MaterialApp(
