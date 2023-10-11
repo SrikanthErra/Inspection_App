@@ -10,9 +10,9 @@ class AppRoutes {
   static const AddSubUser = "/AddSubUser";
   static const AddQuestions = "/AddQuestions";
   static const FoodSurvey = "/FoodSurvey";
-  // static const RaiseGrievance = "/RaiseGrievance";
-  // static const LeaveReport = "/LeaveReport";
-  // static const GrievanceReport = "/GrievanceReport";
+  static const SurveyReport = "/SurveyReport";
+  static const AppInfoScreen = "/AppInfoScreen";
+  static const PrivacyPolicyView = "/PrivacyPolicyView";
   // static const PaySlip = "/PaySlip";
   // static const downloadMaster = "/downloadMaster";
   // static const teamAttendance = "/teamAttendance";

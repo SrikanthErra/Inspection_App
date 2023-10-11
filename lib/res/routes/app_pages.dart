@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/view/add_questions.dart';
 import 'package:inspection_app_flutter/view/add_sub_user.dart';
+import 'package:inspection_app_flutter/view/app_info.dart';
 import 'package:inspection_app_flutter/view/dashboard_view.dart';
-import 'package:inspection_app_flutter/view/food_survey.dart';
+import 'package:inspection_app_flutter/view/take_survey.dart';
 import 'package:inspection_app_flutter/view/login.dart';
+import 'package:inspection_app_flutter/view/privacy_policy.dart';
 import 'package:inspection_app_flutter/view/setMpin.dart';
 import 'package:inspection_app_flutter/view/mpin_validate.dart';
 import 'package:inspection_app_flutter/view/resetMpin.dart';
 import 'package:inspection_app_flutter/view/splash.dart';
+import 'package:inspection_app_flutter/view/survey_report.dart';
 
 class AppPages {
   static Map<String, WidgetBuilder> get routes {
@@ -22,9 +25,9 @@ class AppPages {
       AppRoutes.DashboardView: ((context) => DashboardView()),
       AppRoutes.AddQuestions: ((context) => AddQuestions()),
       AppRoutes.FoodSurvey: ((context) => FoodSurvey()),
-      //   AppRoutes.ApplyLeave: ((context) => ApplyLeave()),
-      //   AppRoutes.RaiseGrievance: ((context) => RaiseGrievance()),
-      //   AppRoutes.LeaveReport: ((context) => LeaveReport()),
+      AppRoutes.SurveyReport: ((context) => SurveyReport()),
+      AppRoutes.AppInfoScreen: ((context) => AppInfoScreen()),
+      AppRoutes.PrivacyPolicyView: ((context) => PrivacyPolicyView()),
       //   AppRoutes.GrievanceReport: ((context) => GrievanceReport()),
       //   AppRoutes.PaySlip: ((context) => PaySlip()),
       //   AppRoutes.dashboardScreen: ((context) => Dashboard()),

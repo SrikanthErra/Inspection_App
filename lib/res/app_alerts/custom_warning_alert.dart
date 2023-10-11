@@ -3,7 +3,7 @@ import 'package:inspection_app_flutter/res/constants/app_colors.dart';
 
 class CustomWarningAlert extends StatefulWidget {
   final String descriptions;
-  final String version;
+  final String? version;
   final void Function() onPressed;
   final void Function() onPressed1;
   final String Img;
@@ -18,7 +18,7 @@ class CustomWarningAlert extends StatefulWidget {
     required this.Img,
     this.imagebg,
     required this.onPressed1,
-    required this.version,
+    this.version,
   }) : super(key: key);
 
   @override
@@ -42,7 +42,7 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
     return Stack(
       children: <Widget>[
         Container(
-          width: MediaQuery.of(context).size.width * 0.7,
+          width: MediaQuery.of(context).size.width * 0.8,
           padding: EdgeInsets.only(left: 10, top: 50, right: 10, bottom: 10),
           margin: EdgeInsets.only(top: 30),
           decoration: BoxDecoration(
@@ -92,7 +92,7 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
                                 MaterialStateProperty.all(Colors.red)),
                         onPressed: widget.onPressed,
                         child: Text(
-                          "Cancel",
+                          "No",
                           style: TextStyle(fontSize: 18),
                         )),
                   ),
@@ -105,7 +105,7 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
                                 MaterialStateProperty.all(Colors.green)),
                         onPressed: widget.onPressed1,
                         child: Text(
-                          "Done",
+                          "Yes",
                           style: TextStyle(fontSize: 18),
                         )),
                   ),

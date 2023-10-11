@@ -2,13 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:inspection_app_flutter/res/app_alerts/custom_warning_alert.dart';
+import 'package:inspection_app_flutter/res/components/reusable%20widgets/app_input_text.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
+import 'package:inspection_app_flutter/view/dashboard_grid_view.dart';
+import 'package:inspection_app_flutter/view/sidemenu_view.dart';
 import 'package:inspection_app_flutter/viewmodel/add_questions_viewModel.dart';
 import 'package:inspection_app_flutter/viewmodel/food_survey_view_model.dart';
+import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
 import 'package:provider/provider.dart';
 
 class DashboardView extends StatelessWidget {
@@ -16,8 +21,12 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addQuestionsViewModel = Provider.of<AddQuestionViewModel>(context, listen: false);
-    final foodSurveyViewModel = Provider.of<FoodSurveyViewModel>(context, listen: false);
+    final addQuestionsViewModel =
+        Provider.of<AddQuestionViewModel>(context, listen: false);
+    final foodSurveyViewModel =
+        Provider.of<FoodSurveyViewModel>(context, listen: false);
+    final surveyReportViewModel =
+        Provider.of<SurveyReportViewModel>(context, listen: false);
     return WillPopScope(
       onWillPop: () {
         showDialog(
@@ -25,33 +34,37 @@ class DashboardView extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return CustomWarningAlert(
-                descriptions: "Are you sure you want to exit the application?",
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                Img: AssetPath.WarningBlueIcon,
-                onPressed1: () {
-                  if (Platform.isAndroid) {
-                    SystemNavigator.pop();
-                  } else if (Platform.isIOS) {
-                    exit(0);
-                  }
-                },
-                version: "verson1111" ?? '');
+              descriptions: "Are you sure you want to exit the application?",
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              Img: AssetPath.WarningBlueIcon,
+              onPressed1: () {
+                if (Platform.isAndroid) {
+                  SystemNavigator.pop();
+                } else if (Platform.isIOS) {
+                  exit(0);
+                }
+              },
+              //version: "verson1111" ?? ''
+            );
           },
         );
         return Future.value(false);
       },
       child: Scaffold(
-        //drawer: SideMenuView(),
+        backgroundColor: AppColors.backgroundClr,
+        drawer: SideMenuView(),
         appBar: AppBar(
-          title: Text('Dashboard', style: TextStyle(color: AppColors.textcolorblack)),
+          //iconTheme: IconThemeData(color: Colors.white),
+          title: Text('Inspection',
+              style: TextStyle(color: AppColors.textcolorwhite)),
           centerTitle: true,
           backgroundColor: AppColors.backgroundClr,
           leading: Builder(
             builder: (BuildContext innerContext) {
               return IconButton(
-                icon: Icon(Icons.menu, color:  AppColors.textcolorblack),
+                icon: Icon(Icons.menu, color: AppColors.textcolorwhite),
                 onPressed: () {
                   // Open the drawer using the inner context
                   Scaffold.of(innerContext).openDrawer();
@@ -61,85 +74,116 @@ class DashboardView extends StatelessWidget {
           ),
         ),
         body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          /* decoration: BoxDecoration(
-              //color : Color.fromARGB(255, 113, 84, 60),
-              //borderRadius: BorderRadius.circular(10.0),
-              gradient: LinearGradient(colors: [
-            Color(0xffB81736),
-            Color(0xff281637),
-          ])), */
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.AddSubUser);
-                    
-                    },
-                    child: Container(
-                      color: Colors.amber,
-                      height: 100,
-                      width: 100,
-                      //child: Image.asset(AssetPath.tsfire_logo),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text("Add Inspector",)),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  GestureDetector(
-                    onTap: () async{
-                      await foodSurveyViewModel.getQuestions();
-                      Navigator.pushNamed(context, AppRoutes.FoodSurvey);
-                    },
-                    child: Visibility(
-                      visible: AppConstants.inspectorFlag ?? false,
-                      child: Container(
-                        color: Colors.amber,
-                        height: 100,
-                        width: 100,
-                        //child: Image.asset(AssetPath.tsfire_logo),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("Food Survey",)),
+            height: double.infinity,
+            width: double.infinity,
+            child: AppConstants.memberType == "Admin"
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Image.network(
+                                AppConstants.appLogo ?? '',
+                                height: 100,
+                                width: 100,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: SvgPicture.asset(
+                                      AssetPath.no_uploaded,
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              AppInputText(
+                                  text: AppConstants.userName ?? '',
+                                  colors: AppColors.textcolorwhite,
+                                  size: 16,
+                                  weight: FontWeight.bold)
+                            ],
+                          )),
+                      Expanded(flex: 3, child: DashboardGridView())
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                          flex: 2,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Image.network(
+                                AppConstants.appLogo ?? '',
+                                height: 100,
+                                width: 100,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    height: 100,
+                                    width: 100,
+                                    child: SvgPicture.asset(
+                                      AssetPath.no_uploaded,
+                                    ),
+                                  );
+                                },
+                              ),
+                              SizedBox(
+                                height: 4,
+                              ),
+                              AppInputText(
+                                  text: AppConstants.userName ?? '',
+                                  colors: AppColors.textcolorwhite,
+                                  size: 16,
+                                  weight: FontWeight.bold)
+                            ],
+                          )),
+                      Expanded(
+                        flex: 3,
+                        child: GestureDetector(
+                          onTap: () async {
+                            await foodSurveyViewModel.getQuestions();
+                            Navigator.pushNamed(context, AppRoutes.FoodSurvey);
+                          },
+                          child: Container(
+                            height: 100,
+                            width: 150,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                                //side: BorderSide(width: 5, color: Colors.green)
+                              ),
+                              color: AppColors.navy,
+                              elevation: 5,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AppInputText(
+                                    colors: AppColors.textcolorwhite,
+                                    size: 16,
+                                    text: "Take Survey",
+                                    weight: FontWeight.normal,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 40,
-                  ),
-                  GestureDetector(
-                    onTap: () async{
-                      await addQuestionsViewModel.getRatingOptions();
-                      Navigator.pushNamed(context, AppRoutes.AddQuestions);
-                    },
-                    child: Visibility(
-                      visible: AppConstants.adminFlag ?? false,
-                      child: Container(
-                        color: Colors.amber,
-                        height: 100,
-                        width: 100,
-                        //child: Image.asset(AssetPath.tsfire_logo),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("Add Questions",)),
-                      ),
-                    ),
-                  ),
-                ],
-              )
-            ],
-          )
-        ),
+                    ],
+                  )),
         bottomNavigationBar: Container(
           color: AppColors.textcolorblack,
           //color: Color.fromARGB(255, 154, 32, 56),

@@ -8,7 +8,9 @@ import 'package:inspection_app_flutter/viewmodel/add_questions_viewModel.dart';
 import 'package:inspection_app_flutter/viewmodel/food_survey_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/login_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/mpin_view_model.dart';
+import 'package:inspection_app_flutter/viewmodel/side_menu_viewmodel.dart';
 import 'package:inspection_app_flutter/viewmodel/splash_view_model.dart';
+import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +56,12 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => FoodSurveyViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SurveyReportViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SideMenuViewModel(),
         ),
       ],
       child: MaterialApp(

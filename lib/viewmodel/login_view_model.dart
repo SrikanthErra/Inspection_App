@@ -3,9 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/data/local_store_helper.dart';
 import 'package:inspection_app_flutter/model/user_insert_model.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
+import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 
 class LogInViewModel extends ChangeNotifier {
+  bool _isLoading = false;
+  bool get getIsLoadingStatus => _isLoading;
+  setIsLoadingStatus(bool status) {
+    _isLoading = status;
+    notifyListeners();
+  }
+  
   validateInputs(mobileNumber, context) {
     if (mobileNumber.isEmpty) {
       showDialog(
@@ -72,17 +80,21 @@ class LogInViewModel extends ChangeNotifier {
 
     int count = 0;
     if (snapshot.value != null) {
+      AppConstants.memberType = '';
       Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
       for (var entry in values.entries) {
         var key = entry.key;
         var value = entry.value;
         count++;
+
         await LocalStoreHelper().writeTheData("name", value["Name"]);
         await LocalStoreHelper()
             .writeTheData("mobileNumber", value["mobileNumber"]);
         await LocalStoreHelper()
             .writeTheData("membertype", value["memberType"]);
         await LocalStoreHelper().writeTheData("mpin", value["mpin"]);
+        AppConstants.memberType = value["memberType"];
+        AppConstants.userName = value["Name"];
         print('Matching key: $key');
         print('Matching value: $value');
       }

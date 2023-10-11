@@ -36,6 +36,10 @@ class SplashViewModel extends ChangeNotifier {
     try {
       if (snapshot.value != null) {
         snapshot.children.forEach((element) {
+          print("-------0: ${element.key}    ${element.value}");
+          if(element.key == "applogo" && element.value != null && element.value != ""){
+            AppConstants.appLogo = element.value.toString();
+          }
           element.children.forEach((element1) {
             Color color = hexToColor(element1.value.toString());
             if (element.key != null && element1.value != null) {
@@ -54,6 +58,7 @@ class SplashViewModel extends ChangeNotifier {
         });
 
         print("combinbed map $combinedMap");
+        print("applogo ${AppConstants.appLogo}");
         ColorConstantsModel colorConstants = ColorConstantsModel(
             backgroundColor: combinedMap["backgroundColor"],
             textcolor1: combinedMap["textcolor1"],
@@ -111,7 +116,7 @@ class SplashViewModel extends ChangeNotifier {
             hell.map((map) => ColorConstantsModel.fromJson(map)).toList(); */
         print("testclr1 = ${colorConstants}");
         AppConstants.colorConstants = colorConstants;
-        print("Color constants: ${AppConstants.colorConstants?.textcolor2}");
+        print("Color constants: ${AppConstants.colorConstants?.backgroundColor}");
         notifyListeners(); // Notify listeners when data is updated
       } else {
         print("No data found under 'AppConstants'.");
@@ -163,9 +168,16 @@ class SplashViewModel extends ChangeNotifier {
     print("mpin is $MPIN");
     String? mobileNumber = await LocalStoreHelper().readTheData("mobileNumber") ?? '';
     print("mobileNumber is $mobileNumber");
+    String memtype = await LocalStoreHelper().readTheData("membertype") ?? '';
+    print("memtype is $memtype");
+    AppConstants.memberType = await LocalStoreHelper().readTheData("membertype") ?? '';
+    
 
     if (MPIN!.isNotEmpty && MPIN != "-") {
-      Navigator.pushNamed(context, AppRoutes.mpinValidate);
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pushNamed(context, AppRoutes.mpinValidate);
+      });
+      //Navigator.pushNamed(context, AppRoutes.mpinValidate);
     }
     // else if (RegFamCount == 0) {
     //   print("loginifsdfsdf");
@@ -173,7 +185,10 @@ class SplashViewModel extends ChangeNotifier {
     // }
     
     else {
-      Navigator.pushNamed(context, AppRoutes.LoginPage);
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pushNamed(context, AppRoutes.LoginPage);
+      });
+      //Navigator.pushNamed(context, AppRoutes.LoginPage);
     }
   }
 

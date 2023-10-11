@@ -65,6 +65,7 @@ class FoodSurveyViewModel extends ChangeNotifier {
                       time: answer.time,
                       question: answer.question,
                       answer: answer.answer,
+                      answerPercent: answer.answerPercent,
                       questionId: answer.questionId)
                   .toJson());
           //await Navigator.pushNamed(context, AppRoutes.DashboardView);

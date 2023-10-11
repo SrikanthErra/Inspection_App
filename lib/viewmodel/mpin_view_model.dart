@@ -162,7 +162,9 @@ class MpinViewModel extends ChangeNotifier {
 
   mpinValidateLoginCall(String mpin, context) async {
     String Mpin = await LocalStoreHelper().readTheData("mpin");
-    String memberType = await LocalStoreHelper().readTheData("memberType");
+    String memberType = await LocalStoreHelper().readTheData("membertype");
+    AppConstants.userName = await LocalStoreHelper().readTheData("name");
+    AppConstants.memberType = memberType;
     if (memberType == "Admin") {
       AppConstants.adminFlag = true;
       AppConstants.inspectorFlag = false;
@@ -173,23 +175,12 @@ class MpinViewModel extends ChangeNotifier {
     }
     if (Mpin == mpin) {
       Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
+      return true;
     } else {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return CustomDialogBox(
-              title: "WRONG MPIN",
-              descriptions: "Please Enter Valid MPIN",
-              Buttontext: "OK",
-              onPressed: () {
-                Navigator.of(context).pop();
-                mpin = "";
-              },
-              bgColor: Colors.red[900],
-            );
-          });
+      return false;
+      
     }
-    notifyListeners();
+    //notifyListeners();
   }
 
   resetMpin(MPIN, context) async {

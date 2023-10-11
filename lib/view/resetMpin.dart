@@ -20,111 +20,117 @@ class _ResetMpintate extends State<ResetMpin> {
   TextEditingController _confirm_mpin = TextEditingController();
   late String mpin, confirmMpin;
   String? phoneNumber;
-  
 
   @override
   Widget build(BuildContext context) {
     /* final mobile = ModalRoute.of(context)?.settings.arguments as dynamic;
     print(mobile); */
-    final mpinViewModel =
-        Provider.of<MpinViewModel>(context, listen: false);
+    final mpinViewModel = Provider.of<MpinViewModel>(context, listen: false);
     return BaseScaffold(
       //resizeToAvoidBottomInset: true,
-      
+
       child: Center(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              /* CircleAvatar(
-                  radius: 60, backgroundImage: AssetImage(AssetPath.AppLogo)), */
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AppInputText(
-                    text: "RESET MPIN",
-                    colors: AppColors.textcolorblack,
-                    size: 25,
-                    weight: FontWeight.bold),
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.52,
+            width: MediaQuery.of(context).size.width * 0.95,
+            child: Card(
+              color: Colors.white,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  /* CircleAvatar(
+                      radius: 60, backgroundImage: AssetImage(AssetPath.AppLogo)), */
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppInputText(
+                        text: "RESET MPIN",
+                        colors: AppColors.textcolorblack,
+                        size: 25,
+                        weight: FontWeight.bold),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppInputText(
+                        text: "Enter 4 digit MPIN",
+                        colors: AppColors.textcolorblack,
+                        size: 15,
+                        weight: FontWeight.bold),
+                  ),
+                  PinCodeFields(
+                    length: 4,
+                    obscureText: true,
+                    fieldBorderStyle: FieldBorderStyle.square,
+                    controller: _mpin,
+                    responsive: false,
+                    fieldHeight: 40.0,
+                    fieldWidth: 40.0,
+                    borderWidth: 1.0,
+                    obscureCharacter: '⬤',
+                    activeBorderColor: Colors.grey,
+                    activeBackgroundColor: AppColors.textcolorwhite,
+                    borderRadius: BorderRadius.circular(10.0),
+                    keyboardType: TextInputType.number,
+                    autoHideKeyboard: true,
+                    fieldBackgroundColor: AppColors.backgroundClr,
+                    borderColor: Colors.grey,
+                    textStyle: TextStyle(
+                      color: AppColors.textcolorwhite,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    onComplete: (mpinOutput) {
+                      // Your logic with pin code
+                      print(mpinOutput);
+                      _mpin.text = mpinOutput;
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: AppInputText(
+                        text: "Confirm 4 digit MPIN",
+                        colors: AppColors.textcolorblack,
+                        size: 15,
+                        weight: FontWeight.bold),
+                  ),
+                  PinCodeFields(
+                    length: 4,
+                    obscureText: true,
+                    fieldBorderStyle: FieldBorderStyle.square,
+                    controller: _confirm_mpin,
+                    responsive: false,
+                    fieldHeight: 40.0,
+                    fieldWidth: 40.0,
+                    borderWidth: 1.0,
+                    obscureCharacter: '⬤',
+                    activeBorderColor: Colors.grey,
+                    activeBackgroundColor: AppColors.textcolorwhite,
+                    borderRadius: BorderRadius.circular(10.0),
+                    keyboardType: TextInputType.number,
+                    autoHideKeyboard: true,
+                    fieldBackgroundColor: AppColors.backgroundClr,
+                    borderColor: Colors.grey,
+                    textStyle: TextStyle(
+                      color: AppColors.textcolorwhite,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    onComplete: (confirm_mpinOutput) {
+                      // Your logic with pin code
+                      print(confirm_mpinOutput);
+                      _confirm_mpin.text = confirm_mpinOutput;
+                    },
+                  ),
+                  ButtonComponent(
+                      onPressed: () async {
+                        mpinViewModel.reserMpin(
+                            _mpin.text, _confirm_mpin.text, context);
+                      },
+                      buttonText: "Proceed"),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AppInputText(
-                    text: "Enter 4 digit MPIN",
-                    colors: AppColors.textcolorblack,
-                    size: 15,
-                    weight: FontWeight.bold),
-              ),
-              PinCodeFields(
-                length: 4,
-                obscureText: true,
-                fieldBorderStyle: FieldBorderStyle.square,
-                controller: _mpin,
-                responsive: false,
-                fieldHeight: 40.0,
-                fieldWidth: 40.0,
-                borderWidth: 1.0,
-                obscureCharacter: '⬤',
-                activeBorderColor: Colors.grey,
-                activeBackgroundColor: Colors.blue,
-                borderRadius: BorderRadius.circular(10.0),
-                keyboardType: TextInputType.number,
-                autoHideKeyboard: true,
-                fieldBackgroundColor: Colors.black12,
-                borderColor: Colors.black38,
-                textStyle: TextStyle(
-                  color: AppColors.textcolorblack,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                onComplete: (mpinOutput) {
-                  // Your logic with pin code
-                  print(mpinOutput);
-                  _mpin.text = mpinOutput;
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: AppInputText(
-                    text: "Confirm 4 digit MPIN",
-                    colors:  AppColors.textcolorblack,
-                    size: 15,
-                    weight: FontWeight.bold),
-              ),
-              PinCodeFields(
-                length: 4,
-                obscureText: true,
-                fieldBorderStyle: FieldBorderStyle.square,
-                controller: _confirm_mpin,
-                responsive: false,
-                fieldHeight: 40.0,
-                fieldWidth: 40.0,
-                borderWidth: 1.0,
-                obscureCharacter: '⬤',
-                activeBorderColor: Colors.grey,
-                activeBackgroundColor: Colors.blue,
-                borderRadius: BorderRadius.circular(10.0),
-                keyboardType: TextInputType.number,
-                autoHideKeyboard: true,
-                fieldBackgroundColor: Colors.black12,
-                borderColor: Colors.black38,
-                textStyle: TextStyle(
-                  color:  AppColors.textcolorblack,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                onComplete: (confirm_mpinOutput) {
-                  // Your logic with pin code
-                  print(confirm_mpinOutput);
-                  _confirm_mpin.text = confirm_mpinOutput;
-                },
-              ),
-              ButtonComponent(
-                  onPressed: () async {
-                    mpinViewModel.reserMpin(_mpin.text, _confirm_mpin.text, context);
-                  },
-                  buttonText: "Proceed"),
-            ],
+            ),
           ),
         ),
       ),

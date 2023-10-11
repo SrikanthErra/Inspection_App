@@ -90,7 +90,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                     },
                     icon: Icon(
                       Icons.arrow_back,
-                      color: AppColors.textcolorblack,
+                      color: AppColors.textcolorwhite,
                     )),
                 actions: [
                   IconButton(
@@ -100,15 +100,15 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                       },
                       icon: Icon(
                         Icons.home,
-                        color: AppColors.textcolorblack,
+                        color: AppColors.textcolorwhite,
                       ))
                 ],
                 centerTitle: true,
-                backgroundColor: Colors.white,
+                backgroundColor: AppColors.backgroundClr,
                 title: Text(
                   widget.titleName ?? '',
                   style: TextStyle(
-                    color: AppColors.textcolorblack,
+                    color: AppColors.textcolorwhite,
                   ),
                 ),
               ),
@@ -117,14 +117,14 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               preferredSize: Size.fromHeight(widget.appBarSize ?? 40),
               child: widget.appBar ??
                   Container(
-                    color: Colors.transparent,
+                    color: AppColors.backgroundClr
                   ),
             ),
       body: widget.backgroundImageVisible == true
           ? Container(
               height: double.infinity,
               width: double.infinity,
-              color: AppColors.textcolorwhite,
+              color: AppColors.backgroundClr,
               decoration: BoxDecoration(
                   /* image: DecorationImage(
                   image: AssetImage(AssetPath.bg_image),

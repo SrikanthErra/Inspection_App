@@ -4,6 +4,7 @@ class SubmitAnswersModel {
   String? time;
   String? question;
   String? answer;
+  String? answerPercent;
   String? questionId;
 
   SubmitAnswersModel(
@@ -12,6 +13,7 @@ class SubmitAnswersModel {
       this.time,
       this.question,
       this.answer,
+      this.answerPercent,
       this.questionId});
 
   SubmitAnswersModel.fromJson(Map<String, dynamic> json) {
@@ -21,6 +23,7 @@ class SubmitAnswersModel {
     question = json['Question'];
     answer = json['Answer'];
     questionId = json['QuestionId'];
+    answerPercent = json['AnswerPercent'];
   }
 
   Map<String, dynamic> toJson() {
@@ -30,6 +33,7 @@ class SubmitAnswersModel {
     data['time'] = this.time;
     data['Question'] = this.question;
     data['Answer'] = this.answer;
+    data['AnswerPercent'] = this.answerPercent;
     data['QuestionId'] = this.questionId;
     return data;
   }

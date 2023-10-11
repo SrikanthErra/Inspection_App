@@ -20,7 +20,7 @@ class AppInputTextFormfield extends StatelessWidget {
       this.onChanged,
       this.length,
       this.inputFormatters,
-      this.autofocus});
+      this.autofocus, this.backgroundColor});
   final String labeltext; 
   final String? errorMessage;
   final TextEditingController nameController;
@@ -36,6 +36,7 @@ class AppInputTextFormfield extends StatelessWidget {
   final int? length;
   final List<TextInputFormatter>? inputFormatters;
   final bool? autofocus;
+  final Color? backgroundColor;
   final void Function()? onTap;
   Widget build(BuildContext context) {
     return Padding(
@@ -43,7 +44,7 @@ class AppInputTextFormfield extends StatelessWidget {
       child: FocusScope(
         node: node,
         child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.95,
+          width: MediaQuery.of(context).size.width * 0.9,
           child: TextFormField(
             onChanged: onChanged,
             autofocus: autofocus ?? false,
@@ -52,12 +53,12 @@ class AppInputTextFormfield extends StatelessWidget {
             obscureText: obsecuretext,
             textInputAction: TextInputAction.done,
             onEditingComplete: onEditingComplete,
-            style: const TextStyle(color: Colors.black),
+            style:  TextStyle(color: backgroundColor ?? Colors.black),
             controller: nameController,
             decoration: InputDecoration(
               //hintText: hintText,
               counterText: '',
-              hintStyle: TextStyle(color: Colors.black),
+              hintStyle: TextStyle(color: backgroundColor ?? Colors.black),
               prefixIcon: prefixIcon,
               //suffixIcon: null == suffixIcon ? null : Icon(suffixIcon),
               suffixIcon: suffixIcon,
@@ -67,15 +68,15 @@ class AppInputTextFormfield extends StatelessWidget {
               ),
               focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.black)),
+                  borderSide: BorderSide(color: backgroundColor ?? Colors.black)),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.black)),
+                  borderSide: BorderSide(color:backgroundColor ?? Colors.black)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.black)),
+                  borderSide: BorderSide(color:backgroundColor ?? Colors.black)),
               labelStyle: TextStyle(
-                color: Colors.black,
+                color: backgroundColor ?? Colors.black,
                 // color: node.hasFocus?Colors.amber:Colors.blue,
                 fontWeight: FontWeight.normal,
               ),

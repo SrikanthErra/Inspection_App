@@ -6,8 +6,10 @@ import 'package:inspection_app_flutter/res/components/reusable%20widgets/app_inp
 import 'package:inspection_app_flutter/res/components/reusable%20widgets/button_component.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
+import 'package:inspection_app_flutter/utils/loader.dart';
 import 'package:inspection_app_flutter/viewmodel/mpin_view_model.dart';
 import 'package:provider/provider.dart';
+
 class mpinValidate extends StatefulWidget {
   const mpinValidate({super.key});
 
@@ -36,112 +38,170 @@ class _mpinValidateState extends State<mpinValidate> {
     final mpinViewModel = Provider.of<MpinViewModel>(context, listen: false);
     //final arg = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
 
-    return Scaffold(
-      // resizeToAvoidBottomInset: true,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              /* CircleAvatar(
-                  radius: 60, backgroundImage: AssetImage(AssetPath.AppLogo)), */
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AppInputText(
-                    text: "Validate MPIN",
-                    colors: AppColors.textcolorblack,
-                    size: 25,
-                    weight: FontWeight.bold),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: AppInputText(
-                    text: "Enter 4 digit MPIN",
-                    colors: AppColors.textcolorblack,
-                    size: 15,
-                    weight: FontWeight.bold),
-              ),
-              PinCodeFields(
-                length: 4,
-                obscureText: true,
-                fieldBorderStyle: FieldBorderStyle.square,
-                controller: _mpin,
-                responsive: false,
-                fieldHeight: 40.0,
-                fieldWidth: 40.0,
-                borderWidth: 1.0,
-                obscureCharacter: '⬤',
-                activeBorderColor: Colors.grey,
-                activeBackgroundColor: Colors.blue,
-                borderRadius: BorderRadius.circular(10.0),
-                keyboardType: TextInputType.number,
-                autoHideKeyboard: true,
-                fieldBackgroundColor: Colors.black12,
-                borderColor: Colors.grey,
-                textStyle: TextStyle(
-                  color: AppColors.textcolorblack,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-                onComplete: (mpinOutput) {
-                  // Your logic with pin code
-                  print(mpinOutput);
-                  _mpin.text = mpinOutput;
-                },
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.ResetMpin,
-                            arguments: phoneNumber);
-                      },
-                      child: Text(
-                        "Forgot MPIN?",
-                        style: TextStyle(
-                          shadows: [
-                            Shadow(color: AppColors.textcolorblack, offset: Offset(0, -5))
-                          ],
-                          color: Colors.transparent,
-                          decoration: TextDecoration.underline,
-                          decorationColor: AppColors.navy,
-                          decorationThickness: 4,
-                          decorationStyle: TextDecorationStyle.solid,
+    return Stack(
+      children: [
+        Scaffold(
+          // resizeToAvoidBottomInset: true,
+          body: Container(
+            color: AppColors.backgroundClr,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.45,
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  child: Card(
+                    color: Colors.white,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        /* CircleAvatar(
+                            radius: 60, backgroundImage: AssetImage(AssetPath.AppLogo)), */
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AppInputText(
+                              text: "Validate MPIN",
+                              colors: AppColors.textcolorblack,
+                              size: 25,
+                              weight: FontWeight.bold),
                         ),
-                      ),
-                    )
-                  ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AppInputText(
+                              text: "Enter 4 digit MPIN",
+                              colors: AppColors.textcolorblack,
+                              size: 15,
+                              weight: FontWeight.bold),
+                        ),
+                        PinCodeFields(
+                          length: 4,
+                          obscureText: true,
+                          fieldBorderStyle: FieldBorderStyle.square,
+                          controller: _mpin,
+                          responsive: false,
+                          fieldHeight: 40.0,
+                          fieldWidth: 40.0,
+                          borderWidth: 1.0,
+                          obscureCharacter: '⬤',
+                          activeBorderColor: Colors.grey,
+                          activeBackgroundColor: AppColors.textcolorwhite,
+                          borderRadius: BorderRadius.circular(10.0),
+                          keyboardType: TextInputType.number,
+                          autoHideKeyboard: true,
+                          fieldBackgroundColor: AppColors.backgroundClr,
+                          borderColor: Colors.grey,
+                          textStyle: TextStyle(
+                            color: AppColors.textcolorwhite,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          onComplete: (mpinOutput) {
+                            // Your logic with pin code
+                            print(mpinOutput);
+                            _mpin.text = mpinOutput;
+                            setState(() {});
+                          },
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, AppRoutes.LoginPage);
+                                },
+                                child: Text(
+                                  "Not You?",
+                                  style: TextStyle(
+                                    shadows: [
+                                      Shadow(
+                                          color: AppColors.textcolorblack,
+                                          offset: Offset(0, -5))
+                                    ],
+                                    color: Colors.transparent,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.navy,
+                                    decorationThickness: 4,
+                                    decorationStyle: TextDecorationStyle.solid,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, AppRoutes.ResetMpin,
+                                      arguments: phoneNumber);
+                                },
+                                child: Text(
+                                  "Forgot MPIN?",
+                                  style: TextStyle(
+                                    shadows: [
+                                      Shadow(
+                                          color: AppColors.textcolorblack,
+                                          offset: Offset(0, -5))
+                                    ],
+                                    color: Colors.transparent,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: AppColors.navy,
+                                    decorationThickness: 4,
+                                    decorationStyle: TextDecorationStyle.solid,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        ButtonComponent(
+                            onPressed: () async {
+                              if (_mpin.text.isNotEmpty && _mpin.text.length == 4) {
+                                bool flag = await mpinViewModel
+                                    .mpinValidateLoginCall(_mpin.text, context);
+                                if (flag) {
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return CustomDialogBox(
+                                          title: "WRONG MPIN",
+                                          descriptions: "Please Enter Valid MPIN",
+                                          Buttontext: "OK",
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            _mpin.text = "";
+                                            setState(() {
+                                              
+                                            });
+                                          },
+                                          bgColor: Colors.red[900],
+                                        );
+                                      });
+                                }
+                              } else {
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return CustomDialogBox(
+                                        title: "INVALID MPIN",
+                                        descriptions: "Please enter 4 digit MPIN",
+                                        Buttontext: "OK",
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      );
+                                    });
+                              }
+                            },
+                            buttonText: "Validate"),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              ButtonComponent(
-                  onPressed: () {
-                    if (_mpin.text.isNotEmpty && _mpin.text.length == 4) {
-                      mpinViewModel.mpinValidateLoginCall(_mpin.text, context);
-                    } else {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return CustomDialogBox(
-                              title: "INVALID MPIN",
-                              descriptions: "Please enter 4 digit MPIN",
-                              Buttontext: "OK",
-                              
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            );
-                          });
-                    }
-                  },
-                  buttonText: "Validate"),
-            ],
+            ),
           ),
         ),
-      ),
+       // if (login_provider.getIsLoadingStatus) LoaderComponent()
+      ],
     );
   }
 

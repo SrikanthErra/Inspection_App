@@ -6,5 +6,8 @@ class AppConstants {
   static ColorConstantsModel? colorConstants;
   static bool? adminFlag;
   static bool? inspectorFlag;
+  static String? memberType;
+  static String? appLogo;
+  static String? userName;
 
 }

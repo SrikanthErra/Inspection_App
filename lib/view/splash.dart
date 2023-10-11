@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
+import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/viewmodel/splash_view_model.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     );
 
     Color clr = splash_provider
-        .hexToColor(AppConstants.colorConstants?.textcolor1 ?? "#000000");
+        .hexToColor(AppConstants.colorConstants?.backgroundColor ?? "#000000");
     print("color is $clr");
     return Scaffold(
         body: Stack(
@@ -32,6 +34,18 @@ class _SplashScreenState extends State<SplashScreen> {
             color: clr,
             /* image: DecorationImage(
                 image: AssetImage(AssetPath.splash), fit: BoxFit.cover), */
+          ),
+          child: Image.network(
+            AppConstants.appLogo ?? '',
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                height: 200,
+                width: 200,
+                child: SvgPicture.asset(
+                  AssetPath.no_uploaded,
+                ),
+              );
+            },
           ),
         )
       ],
