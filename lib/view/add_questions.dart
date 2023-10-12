@@ -47,7 +47,8 @@ class _AddQuestionsState extends State<AddQuestions> {
   String? selected50Value;
   String? selected75Value;
   String? selected100Value;
-  /* @override
+
+  @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -55,19 +56,18 @@ class _AddQuestionsState extends State<AddQuestions> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final addQuestionsViewModel =
           Provider.of<AddQuestionViewModel>(context, listen: false);
-      await addQuestionsViewModel.getRatingOptions();
+      await addQuestionsViewModel.getRatingOptions(context);
       setState(() {
         
       });
     });
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
     final addQuestionsViewModel =
-        Provider.of<AddQuestionViewModel>(context, listen: false);
-    final login_provider = Provider.of<LogInViewModel>(context);
-
+        Provider.of<AddQuestionViewModel>(context,);
+    print("addQuestionsViewModel.isLoading ${addQuestionsViewModel.isLoading}");
     return Stack(
       children: [
         BaseScaffold(
@@ -230,7 +230,8 @@ class _AddQuestionsState extends State<AddQuestions> {
             ),
           ),
         ),
-        if (login_provider.getIsLoadingStatus) LoaderComponent()
+        
+        if (addQuestionsViewModel.isLoading) LoaderComponent()
       ],
     );
   }

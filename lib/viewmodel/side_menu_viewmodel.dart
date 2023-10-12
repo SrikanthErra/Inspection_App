@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:inspection_app_flutter/data/local_store_helper.dart';
 import 'package:inspection_app_flutter/res/app_alerts/custom_warning_alert.dart';
+import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/viewmodel/add_questions_viewModel.dart';
 import 'package:inspection_app_flutter/viewmodel/food_survey_view_model.dart';
+import 'package:inspection_app_flutter/viewmodel/inspector_survey_report_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -19,11 +22,12 @@ class SideMenuViewModel with ChangeNotifier {
     final addQuestionsViewModel = Provider.of<AddQuestionViewModel>(context, listen: false);
     final takeSurveyViewModel = Provider.of<FoodSurveyViewModel>(context, listen: false);
     final surveyReportViewModel = Provider.of<SurveyReportViewModel>(context, listen: false);
+    final inspectorSurveyReportViewModel = Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
     if (subtitle == 'Home') {
       Navigator.pop(context);
       Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
     } else if (subtitle == 'Take Survey') {
-      await takeSurveyViewModel.getQuestions();
+      await takeSurveyViewModel.getQuestions(context);
       Navigator.pop(context);
       Navigator.pushNamed(context, AppRoutes.FoodSurvey);
     } else if (subtitle == 'Add Inspector') {
@@ -34,19 +38,28 @@ class SideMenuViewModel with ChangeNotifier {
         AppRoutes.AddSubUser,
       );
     } else if (subtitle == 'Add Questions') {
-      await addQuestionsViewModel.getRatingOptions();
+      //await addQuestionsViewModel.getRatingOptions(context);
       Navigator.pop(context);
       Navigator.pushNamed(
         context,
         AppRoutes.AddQuestions,
       );
     } 
-    else if (subtitle == 'Survey Report') {
-      await surveyReportViewModel.getSurveyReport();
+    else if (subtitle == 'Survey Report' && AppConstants.memberType == 'Admin') {
+      //await surveyReportViewModel.getSurveyReport(context);
       Navigator.pop(context);
       Navigator.pushNamed(
         context,
         AppRoutes.SurveyReport,
+      );
+    }
+    else if (subtitle == 'Survey Report' && AppConstants.memberType == 'Inspector') {
+      print("enter in inspector survey report");
+      //await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
+      Navigator.pop(context);
+      Navigator.pushNamed(
+        context,
+        AppRoutes.InspectorSurveyReport,
       );
     }
     else if (subtitle == 'App Info') {
@@ -92,8 +105,11 @@ class SideMenuViewModel with ChangeNotifier {
                 Navigator.pop(context);
               },
               Img: AssetPath.WarningBlueIcon,
-              onPressed1: () =>
-                  Navigator.pushReplacementNamed(context, AppRoutes.LoginPage),
+              onPressed1: () async{
+                await LocalStoreHelper().clearTheData();
+                Navigator.pushReplacementNamed(context, AppRoutes.LoginPage);
+              }
+                  
               //version: /* AppConstants.version_number ?? */ ''
               );
           

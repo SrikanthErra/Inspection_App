@@ -3,20 +3,21 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/res/components/base_scaffold.dart';
 import 'package:inspection_app_flutter/utils/loader.dart';
+import 'package:inspection_app_flutter/viewmodel/inspector_survey_report_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 
 enum LegendShape { circle, rectangle }
 
-class SurveyReport extends StatefulWidget {
-  const SurveyReport({Key? key}) : super(key: key);
+class InspectorSurveyReport extends StatefulWidget {
+  const InspectorSurveyReport({Key? key}) : super(key: key);
 
   @override
-  SurveyReportState createState() => SurveyReportState();
+  InspectorSurveyReportState createState() => InspectorSurveyReportState();
 }
 
-class SurveyReportState extends State<SurveyReport> {
+class InspectorSurveyReportState extends State<InspectorSurveyReport> {
   /* final legendLabels = <String, String>{
     "Poor": "Flutter legend",
     "Average": "React legend",
@@ -71,26 +72,26 @@ class SurveyReportState extends State<SurveyReport> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final surveyReportViewModel =
-          Provider.of<SurveyReportViewModel>(context, listen: false);
-      await surveyReportViewModel.getSurveyReport(context);
-      setState(() {});
+      final inspectorSurveyReportViewModel =
+          Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
+      await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
+      setState(() {
+        
+      });
     });
   }
-
   @override
   Widget build(BuildContext context) {
-    final surveyReportViewModel =
-        Provider.of<SurveyReportViewModel>(context, listen: false);
+    final inspectorSurveyReportViewModel =
+        Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
     final chart = PieChart(
       /* centerTextStyle: TextStyle(
         fontSize: 30,
         color: Colors.black,
       ), */
       key: ValueKey(key),
-      dataMap: surveyReportViewModel.dataMap,
+      dataMap: inspectorSurveyReportViewModel.dataMap,
       animationDuration: const Duration(milliseconds: 800),
       chartLegendSpacing: _chartLegendSpacing!,
       chartRadius: math.min(MediaQuery.of(context).size.width / 1, 300),
@@ -189,7 +190,7 @@ class SurveyReportState extends State<SurveyReport> {
             ),
           ),
         ),
-        if (surveyReportViewModel.getIsLoadingStatus) LoaderComponent()
+        if (inspectorSurveyReportViewModel.getIsLoadingStatus) LoaderComponent()
       ],
     );
   }

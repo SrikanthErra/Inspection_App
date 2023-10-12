@@ -18,10 +18,11 @@ class _LoaderComponentState extends State<LoaderComponent> {
           color: Colors.black.withOpacity(0.3),
           child: Lottie.asset(
             AssetPath.loader,
-            height: 20,
-            width: 20,
+            height: 50,
+            width: 50,
           ),
         ),
+        
       ],
     );
   }

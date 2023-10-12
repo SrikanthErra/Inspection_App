@@ -6,6 +6,7 @@ import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/viewmodel/add_inspector_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/add_questions_viewModel.dart';
 import 'package:inspection_app_flutter/viewmodel/food_survey_view_model.dart';
+import 'package:inspection_app_flutter/viewmodel/inspector_survey_report_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/login_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/mpin_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/side_menu_viewmodel.dart';
@@ -13,7 +14,7 @@ import 'package:inspection_app_flutter/viewmodel/splash_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -63,6 +64,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => SideMenuViewModel(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => InspectorSurveyReportViewModel(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -73,7 +77,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: AppColors.navy,
         ), */
         //home: SideMenu(),
-        //builder: EasyLoading.init(),
+        builder: EasyLoading.init(),
       ),
     );
   }

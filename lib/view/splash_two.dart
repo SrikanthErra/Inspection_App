@@ -7,14 +7,14 @@ import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/viewmodel/splash_view_model.dart';
 import 'package:provider/provider.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashTwoScreen extends StatefulWidget {
+  const SplashTwoScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashTwoScreen> createState() => _SplashTwoScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashTwoScreenState extends State<SplashTwoScreen> {
   @override
   Widget build(BuildContext context) {
     final splash_provider = Provider.of<SplashViewModel>(
@@ -28,10 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Stack(
       children: <Widget>[
         Container(
-          /* height: double.infinity,
+          height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: clr,
+            //color: clr,
             /* image: DecorationImage(
                 image: AssetImage(AssetPath.splash), fit: BoxFit.cover), */
           ),
@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 ),
               );
             },
-          ), */
+          ),
         )
       ],
     ));
@@ -55,15 +55,18 @@ class _SplashScreenState extends State<SplashScreen> {
   initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      await getAppConstantsdata(context);
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.pushReplacementNamed(context, AppRoutes.LoginPage);
+      });
+      //await getAppConstantsdata(context);
     });
   }
 
-  getAppConstantsdata(context) async {
+  /* getAppConstantsdata(context) async {
     final splash_provider =
         Provider.of<SplashViewModel>(context, listen: false);
     await splash_provider.getAppConstants();
     await splash_provider.getModules();
     await splash_provider.navigationflow(context);
-  }
+  } */
 }

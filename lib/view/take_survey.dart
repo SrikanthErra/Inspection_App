@@ -32,9 +32,9 @@ class _FoodSurveyState extends State<FoodSurvey> {
       name = await LocalStoreHelper().readTheData("name");
       mobileNumber = await LocalStoreHelper().readTheData("mobileNumber");
       print("name is $name");
-      /* final foodSurveyViewModel =
+      final foodSurveyViewModel =
           Provider.of<FoodSurveyViewModel>(context, listen: false);
-      await foodSurveyViewModel.getQuestions(); */
+      await foodSurveyViewModel.getQuestions(context);
       setState(() {});
     });
   }
@@ -222,7 +222,7 @@ class _FoodSurveyState extends State<FoodSurvey> {
                 ],
               ),
             )),
-            //if (login_provider.getIsLoadingStatus) LoaderComponent()
+            if (foodSurveyViewModel.getIsLoadingStatus) LoaderComponent()
           ],
     );
   }

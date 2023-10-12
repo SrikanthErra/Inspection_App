@@ -39,80 +39,82 @@ class _LoginPageState extends State<LoginPage> {
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.45,
                 width: MediaQuery.of(context).size.width * 0.95,
-                child: Card(
-                  color: AppColors.textcolorwhite,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CircleAvatar(
-                            radius: 60,
-                            backgroundImage: NetworkImage(
-                              AppConstants.appLogo ?? '',
-                            )),
-                      ),
-                      SizedBox(height: 20,),
-    
-                      /* Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: AppInputText(
-                            text: "Log IN",
-                            colors: AppColors.textcolorblack,
-                            size: 20,
-                            weight: FontWeight.bold),
-                      ), */
-                      AppInputTextfield(
-                        length: 10,
-                        inputFormatters: [
-                          new FilteringTextInputFormatter.allow(RegExp("[0-9]")),
-                        ],
-                        hintText: "Mobile Number",
-                        nameController: _mobile,
-                        errorMessage: "please enter Mobile number",
-                        input_type: TextInputType.number,
-                        obsecuretext: false,
-                        node: _node,
-                        action: TextInputAction.next,
-                        onEditingComplete: () {
-                          _node.nextFocus();
-                        },
-                        //lengthRequired: 10,
-                        globalKey: _formkey1,
-                      ),
-                      ButtonComponent(
-                          onPressed: () async {
-                            if (await loginViewModel.validateInputs(
-                                _mobile.text, context)) {
-                              int count = await loginViewModel.loginCount(
-                                  _mobile.text, context);
-                              print("count is $count");
-                            }
-                            ;
-                            //Navigator.pushNamed(context, AppRoutes.mpinValidate);
+                child: SingleChildScrollView(
+                  child: Card(
+                    color: AppColors.textcolorwhite,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CircleAvatar(
+                              radius: 60,
+                              backgroundImage: NetworkImage(
+                                AppConstants.appLogo ?? '',
+                              )),
+                        ),
+                        SizedBox(height: 20,),
+                    
+                        /* Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: AppInputText(
+                              text: "Log IN",
+                              colors: AppColors.textcolorblack,
+                              size: 20,
+                              weight: FontWeight.bold),
+                        ), */
+                        AppInputTextfield(
+                          length: 10,
+                          inputFormatters: [
+                            new FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                          ],
+                          hintText: "Mobile Number",
+                          nameController: _mobile,
+                          errorMessage: "please enter Mobile number",
+                          input_type: TextInputType.number,
+                          obsecuretext: false,
+                          node: _node,
+                          action: TextInputAction.next,
+                          onEditingComplete: () {
+                            _node.nextFocus();
                           },
-                          buttonText: "LOGIN"),
-                      /* Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppInputText(
-                              text: strings.AccountCheck,
-                              colors: Colors.black,
-                              size: 15,
-                              weight: FontWeight.w300),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, AppRoutes.registraion);
+                          //lengthRequired: 10,
+                          globalKey: _formkey1,
+                        ),
+                        ButtonComponent(
+                            onPressed: () async {
+                              if (await loginViewModel.validateInputs(
+                                  _mobile.text, context)) {
+                                int count = await loginViewModel.loginCount(
+                                    _mobile.text, context);
+                                print("count is $count");
+                              }
+                              ;
+                              //Navigator.pushNamed(context, AppRoutes.mpinValidate);
                             },
-                            child: Text(
-                              strings.SignUp,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, color: Colors.white),
+                            buttonText: "LOGIN"),
+                        /* Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppInputText(
+                                text: strings.AccountCheck,
+                                colors: Colors.black,
+                                size: 15,
+                                weight: FontWeight.w300),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, AppRoutes.registraion);
+                              },
+                              child: Text(
+                                strings.SignUp,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, color: Colors.white),
+                              ),
                             ),
-                          ),
-                        ],
-                      ) */
-                    ],
+                          ],
+                        ) */
+                      ],
+                    ),
                   ),
                 ),
               ),

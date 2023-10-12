@@ -169,7 +169,7 @@ class _AddSubUserState extends State<AddSubUser> {
                                 if (await addInspectorModel.validateInputs(
                                     family_name.text, mobileNumber.text, context)) {
                                   bool exists = await addInspectorModel
-                                      .checkNumberExists(mobileNumber.text);
+                                      .checkNumberExists(mobileNumber.text, context);
                                   if (exists) {
                                     showDialog(
                                       context: context,
@@ -202,7 +202,7 @@ class _AddSubUserState extends State<AddSubUser> {
             ],
           ),
         ),
-        //if (addInspectorModel.getIsLoadingStatus) LoaderComponent()
+        if (addInspectorModel.isLoading) LoaderComponent()
       ],
     );
   }

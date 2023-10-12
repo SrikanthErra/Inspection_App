@@ -29,6 +29,8 @@ class AppColors {
   static Color textcolorblack = hexToColor(AppConstants.colorConstants?.textcolor2 ?? "#000000");
   static Color textcolorwhite = hexToColor(AppConstants.colorConstants?.textcolor1 ?? "#000000");
   static Color backgroundClr = hexToColor(AppConstants.colorConstants?.backgroundColor ?? "#000000");
+  static Color background1= hexToColor(AppConstants.colorConstants?.background1 ?? "#000000");
+  static Color background2 = hexToColor(AppConstants.colorConstants?.background2 ?? "#000000");
   
 
 

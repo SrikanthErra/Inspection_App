@@ -2,8 +2,16 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/model/user_insert_model.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
+import 'package:inspection_app_flutter/utils/internet_check.dart';
 
 class AddInspectorViewModel extends ChangeNotifier {
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+  void setIsLoadingStatus(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
   validateInputs(name, mobileNumber, context) {
     if (name.isEmpty) {
       showDialog(
@@ -71,28 +79,69 @@ class AddInspectorViewModel extends ChangeNotifier {
     }
   }
 
-  Future<bool> checkNumberExists(String number) async {
-    final databaseReference = FirebaseDatabase.instance.ref();
-    DataSnapshot snapshot = (await databaseReference
-            .child('LogIN')
-            .orderByChild('mobileNumber')
-            .equalTo(number)
-            .once())
-        .snapshot;
-    return snapshot.value != null;
+  Future<bool> checkNumberExists(String number, context) async {
+    bool isConnected = await InternetCheck().hasInternetConnection();
+    if (isConnected) {
+      setIsLoadingStatus(true);
+      final databaseReference = await FirebaseDatabase.instance.ref();
+      DataSnapshot snapshot = (await databaseReference
+              .child('LogIN')
+              .orderByChild('mobileNumber')
+              .equalTo(number)
+              .once())
+          .snapshot;
+      setIsLoadingStatus(false);
+      return snapshot.value != null;
+    } else {
+      setIsLoadingStatus(false);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              title: "NO INTERNET",
+              descriptions: "Please Check your Internet Connection",
+              Buttontext: "OK",
+              //img: Image.asset(AssetPath.WarningBlueIcon),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            );
+          });
+      return false;
+    }
   }
 
   insertInspectorData(name, mobileNumber, context) async {
-    await FirebaseDatabase.instance
-        .ref()
-        .child("LogIN")
-        .push()
-        .set(UserInsertModel(
-          name: name,
-          mobileNumber: mobileNumber,
-          memberType: "Inspector",
-          mpin: '-',
-        ).toJson());
+    bool isConnected = await InternetCheck().hasInternetConnection();
+    if (isConnected) {
+      setIsLoadingStatus(true);
+      await FirebaseDatabase.instance
+          .ref()
+          .child("LogIN")
+          .push()
+          .set(UserInsertModel(
+            name: name,
+            mobileNumber: mobileNumber,
+            memberType: "Inspector",
+            mpin: '-',
+          ).toJson());
+      setIsLoadingStatus(false);
+    } else {
+      setIsLoadingStatus(false);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              title: "NO INTERNET",
+              descriptions: "Please Check your Internet Connection",
+              Buttontext: "OK",
+              //img: Image.asset(AssetPath.WarningBlueIcon),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            );
+          });
+    }
   }
 
 /* await FirebaseDatabase.instance

@@ -5,6 +5,7 @@ import 'package:inspection_app_flutter/model/user_insert_model.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
+import 'package:inspection_app_flutter/utils/internet_check.dart';
 
 class LogInViewModel extends ChangeNotifier {
   bool _isLoading = false;
@@ -13,7 +14,7 @@ class LogInViewModel extends ChangeNotifier {
     _isLoading = status;
     notifyListeners();
   }
-  
+
   validateInputs(mobileNumber, context) {
     if (mobileNumber.isEmpty) {
       showDialog(
@@ -70,62 +71,87 @@ class LogInViewModel extends ChangeNotifier {
     /* final ref = FirebaseDatabase.instance.ref().child("LogIN");
     final snapshot = await ref.get(); */
 
-    final databaseReference = FirebaseDatabase.instance.ref();
-    Query query = databaseReference
-        .child("LogIN")
-        .orderByChild("mobileNumber")
-        .equalTo(mobileNumber);
-    DatabaseEvent event = await query.once();
-    DataSnapshot snapshot = event.snapshot;
+    bool isConnected = await InternetCheck().hasInternetConnection();
+    if (isConnected) {
+      setIsLoadingStatus(true);
+      final databaseReference = await FirebaseDatabase.instance.ref();
+      Query query = databaseReference
+          .child("LogIN")
+          .orderByChild("mobileNumber")
+          .equalTo(mobileNumber);
+      DatabaseEvent event = await query.once();
+      DataSnapshot snapshot = event.snapshot;
 
-    int count = 0;
-    if (snapshot.value != null) {
-      AppConstants.memberType = '';
-      Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
-      for (var entry in values.entries) {
-        var key = entry.key;
-        var value = entry.value;
-        count++;
+      int count = 0;
+      if (snapshot.value != null) {
+        setIsLoadingStatus(false);
+        AppConstants.memberType = '';
+        Map<dynamic, dynamic> values = snapshot.value as Map<dynamic, dynamic>;
+        for (var entry in values.entries) {
+          var key = entry.key;
+          var value = entry.value;
+          count++;
 
-        await LocalStoreHelper().writeTheData("name", value["Name"]);
-        await LocalStoreHelper()
-            .writeTheData("mobileNumber", value["mobileNumber"]);
-        await LocalStoreHelper()
-            .writeTheData("membertype", value["memberType"]);
-        await LocalStoreHelper().writeTheData("mpin", value["mpin"]);
-        AppConstants.memberType = value["memberType"];
-        AppConstants.userName = value["Name"];
-        print('Matching key: $key');
-        print('Matching value: $value');
+          await LocalStoreHelper().writeTheData("name", value["Name"]);
+          await LocalStoreHelper()
+              .writeTheData("mobileNumber", value["mobileNumber"]);
+          await LocalStoreHelper()
+              .writeTheData("membertype", value["memberType"]);
+          await LocalStoreHelper().writeTheData("mpin", value["mpin"]);
+          await LocalStoreHelper().writeTheData("memberKey", key);
+          AppConstants.memberType = value["memberType"];
+          AppConstants.userName = value["Name"];
+          AppConstants.memberkey = key;
+          AppConstants.mobileNumber = value["mobileNumber"];
+          print('Matching key: $key');
+          print('Matching value: $value');
+        }
+        ;
+
+        print('Total matching records: $count');
       }
-      ;
-
-      print('Total matching records: $count');
-    }
-    if (count == 0) {
+      if (count == 0) {
+        setIsLoadingStatus(false);
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialogBox(
+                // title: "Invalid User mobile number",d
+                title: "User not registered",
+                descriptions: "Please Register with this mobile number",
+                Buttontext: "OK",
+                onPressed: () {
+                  Navigator.pushNamed(context, AppRoutes.LoginPage);
+                },
+              );
+            });
+      } else {
+        setIsLoadingStatus(false);
+        String mpin = await LocalStoreHelper().readTheData("mpin");
+        print("mpin is $mpin");
+        if (mpin != '-') {
+          Navigator.pushNamed(context, AppRoutes.mpinValidate);
+        } else {
+          Navigator.pushNamed(context, AppRoutes.setMpinPage);
+        }
+      }
+      return count;
+    } else {
+      setIsLoadingStatus(false);
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return CustomDialogBox(
-              // title: "Invalid User mobile number",d
-              title: "User not registered",
-              descriptions: "Please Register with this mobile number",
-              Buttontext: "OK",
+              title: 'NO INTERNET',
+              descriptions: "Please check your internet connection",
+              Buttontext: 'OK',
               onPressed: () {
-                Navigator.pushNamed(context, AppRoutes.LoginPage);
+                Navigator.pop(context);
               },
             );
           });
-    } else {
-      String mpin = await LocalStoreHelper().readTheData("mpin");
-      print("mpin is $mpin");
-      if (mpin != '-') {
-        Navigator.pushNamed(context, AppRoutes.mpinValidate);
-      } else {
-        Navigator.pushNamed(context, AppRoutes.setMpinPage);
-      }
     }
-    return count;
+
     /* if (snapshot.exists) {
       print(snapshot.children.length);
       snapshot.children.forEach((DataSnapshot dataSnapshot) {

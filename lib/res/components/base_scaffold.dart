@@ -57,9 +57,10 @@ class _BaseScaffoldState extends State<BaseScaffold> {
   Widget build(BuildContext context) {
     final splash_provider =
         Provider.of<SplashViewModel>(context, listen: false);
-        print(" AppColors.backgroundClr ${ AppColors.backgroundClr}");
-        print("AppConstants.colorConstants?.backgroundColor ${AppConstants.colorConstants?.backgroundColor}");
-    
+    print(" AppColors.backgroundClr ${AppColors.backgroundClr}");
+    print(
+        "AppConstants.colorConstants?.backgroundColor ${AppConstants.colorConstants?.backgroundColor}");
+
     return Scaffold(
       extendBodyBehindAppBar: widget.extendBodyBehindAppBar ?? false,
       drawer: Visibility(
@@ -115,15 +116,18 @@ class _BaseScaffoldState extends State<BaseScaffold> {
             )
           : PreferredSize(
               preferredSize: Size.fromHeight(widget.appBarSize ?? 40),
-              child: widget.appBar ??
-                  Container(
-                    color: AppColors.backgroundClr
-                  ),
+              child: widget.appBar ?? Container(color: AppColors.backgroundClr),
             ),
       body: widget.backgroundImageVisible == true
           ? Container(
               height: double.infinity,
               width: double.infinity,
+              /* decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.background1, AppColors.background2],
+              )), */
               color: AppColors.backgroundClr,
               decoration: BoxDecoration(
                   /* image: DecorationImage(
@@ -137,6 +141,12 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               height: double.infinity,
               width: double.infinity,
               color: AppColors.backgroundClr,
+              /* decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [AppColors.background1, AppColors.background2],
+              )), */
               child: widget.child,
             ),
     );

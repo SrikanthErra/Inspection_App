@@ -4,6 +4,8 @@ import 'package:inspection_app_flutter/view/add_questions.dart';
 import 'package:inspection_app_flutter/view/add_sub_user.dart';
 import 'package:inspection_app_flutter/view/app_info.dart';
 import 'package:inspection_app_flutter/view/dashboard_view.dart';
+import 'package:inspection_app_flutter/view/inspector_survey_report.dart';
+import 'package:inspection_app_flutter/view/splash_two.dart';
 import 'package:inspection_app_flutter/view/take_survey.dart';
 import 'package:inspection_app_flutter/view/login.dart';
 import 'package:inspection_app_flutter/view/privacy_policy.dart';
@@ -28,8 +30,8 @@ class AppPages {
       AppRoutes.SurveyReport: ((context) => SurveyReport()),
       AppRoutes.AppInfoScreen: ((context) => AppInfoScreen()),
       AppRoutes.PrivacyPolicyView: ((context) => PrivacyPolicyView()),
-      //   AppRoutes.GrievanceReport: ((context) => GrievanceReport()),
-      //   AppRoutes.PaySlip: ((context) => PaySlip()),
+      AppRoutes.InspectorSurveyReport: ((context) => InspectorSurveyReport()),
+      AppRoutes.SplashTwoScreen: ((context) => SplashTwoScreen()),
       //   AppRoutes.dashboardScreen: ((context) => Dashboard()),
       //   AppRoutes.downloadMaster: ((context) => DownloadMasters()),
       //   AppRoutes.teamAttendance: ((context) => TeamAttendanceView()),

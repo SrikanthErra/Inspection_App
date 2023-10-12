@@ -52,6 +52,7 @@ class _SideMenuViewState extends State<SideMenuView> {
       'subtitles': [
         {'title': 'Home', 'image': AssetPath.home},
         {'title': 'Take Survey', 'image': AssetPath.take_survey_svg},
+        {'title': 'Survey Report', 'image': AssetPath.survey_report_svg},
       ],
     },
     {

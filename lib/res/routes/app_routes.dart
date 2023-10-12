@@ -13,8 +13,8 @@ class AppRoutes {
   static const SurveyReport = "/SurveyReport";
   static const AppInfoScreen = "/AppInfoScreen";
   static const PrivacyPolicyView = "/PrivacyPolicyView";
-  // static const PaySlip = "/PaySlip";
-  // static const downloadMaster = "/downloadMaster";
+  static const InspectorSurveyReport = "/InspectorSurveyReport";
+  static const SplashTwoScreen = "/SplashTwoScreen";
   // static const teamAttendance = "/teamAttendance";
   // static const approveTeamAttendance = "/approveTeamAttendance";
   // static const privacyPolicy= "/privacyPolicy";

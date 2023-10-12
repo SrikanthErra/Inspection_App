@@ -76,8 +76,8 @@ class DashboardView extends StatelessWidget {
         body: Container(
             height: double.infinity,
             width: double.infinity,
-            child: AppConstants.memberType == "Admin"
-                ? Column(
+            child:/*  AppConstants.memberType == "Admin"
+                ?  */Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -115,7 +115,7 @@ class DashboardView extends StatelessWidget {
                       Expanded(flex: 3, child: DashboardGridView())
                     ],
                   )
-                : Column(
+                /* : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
@@ -183,7 +183,8 @@ class DashboardView extends StatelessWidget {
                         ),
                       ),
                     ],
-                  )),
+                  ) */
+                  ),
         bottomNavigationBar: Container(
           color: AppColors.textcolorblack,
           //color: Color.fromARGB(255, 154, 32, 56),

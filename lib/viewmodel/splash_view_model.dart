@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/data/local_store_helper.dart';
 import 'package:inspection_app_flutter/model/color_constants_model.dart';
+import 'package:inspection_app_flutter/model/moduels_model.dart';
 import 'package:inspection_app_flutter/model/user_insert_model.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
+import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 
 class SplashViewModel extends ChangeNotifier {
@@ -28,7 +31,8 @@ class SplashViewModel extends ChangeNotifier {
             .toJson()); */
 
     final List<Map<String, dynamic>> hell = [];
-    final databaseReference = FirebaseDatabase.instance.ref();
+    
+    final databaseReference = await FirebaseDatabase.instance.ref();
     Query query = databaseReference.child("AppConstants");
     DatabaseEvent event = await query.once();
     DataSnapshot snapshot = event.snapshot;
@@ -37,7 +41,9 @@ class SplashViewModel extends ChangeNotifier {
       if (snapshot.value != null) {
         snapshot.children.forEach((element) {
           print("-------0: ${element.key}    ${element.value}");
-          if(element.key == "applogo" && element.value != null && element.value != ""){
+          if (element.key == "applogo" &&
+              element.value != null &&
+              element.value != "") {
             AppConstants.appLogo = element.value.toString();
           }
           element.children.forEach((element1) {
@@ -61,6 +67,8 @@ class SplashViewModel extends ChangeNotifier {
         print("applogo ${AppConstants.appLogo}");
         ColorConstantsModel colorConstants = ColorConstantsModel(
             backgroundColor: combinedMap["backgroundColor"],
+            background1: combinedMap["background1"],
+            background2: combinedMap["background2"],
             textcolor1: combinedMap["textcolor1"],
             textcolor2: combinedMap["textcolor2"]);
         print("testclr = ${colorConstants.textcolor2}");
@@ -116,7 +124,8 @@ class SplashViewModel extends ChangeNotifier {
             hell.map((map) => ColorConstantsModel.fromJson(map)).toList(); */
         print("testclr1 = ${colorConstants}");
         AppConstants.colorConstants = colorConstants;
-        print("Color constants: ${AppConstants.colorConstants?.backgroundColor}");
+        print(
+            "Color constants: ${AppConstants.colorConstants?.backgroundColor}");
         notifyListeners(); // Notify listeners when data is updated
       } else {
         print("No data found under 'AppConstants'.");
@@ -166,12 +175,13 @@ class SplashViewModel extends ChangeNotifier {
   navigationflow(context) async {
     String? MPIN = await LocalStoreHelper().readTheData("mpin") ?? '';
     print("mpin is $MPIN");
-    String? mobileNumber = await LocalStoreHelper().readTheData("mobileNumber") ?? '';
+    String? mobileNumber =
+        await LocalStoreHelper().readTheData("mobileNumber") ?? '';
     print("mobileNumber is $mobileNumber");
     String memtype = await LocalStoreHelper().readTheData("membertype") ?? '';
     print("memtype is $memtype");
-    AppConstants.memberType = await LocalStoreHelper().readTheData("membertype") ?? '';
-    
+    AppConstants.memberType =
+        await LocalStoreHelper().readTheData("membertype") ?? '';
 
     if (MPIN!.isNotEmpty && MPIN != "-") {
       Future.delayed(Duration(seconds: 2), () {
@@ -183,12 +193,90 @@ class SplashViewModel extends ChangeNotifier {
     //   print("loginifsdfsdf");
     //   Navigator.pushNamed(context, AppRoutes.registraion);
     // }
-    
+
     else {
-      Future.delayed(Duration(seconds: 2), () {
-        Navigator.pushNamed(context, AppRoutes.LoginPage);
+      Future.delayed(Duration(seconds: 0), () {
+        Navigator.pushNamed(context, AppRoutes.SplashTwoScreen);
       });
       //Navigator.pushNamed(context, AppRoutes.LoginPage);
+    }
+  }
+
+  getModules() async {
+    AppConstants.AdminModules = [];
+    AppConstants.InspectorModules = [];
+    final databaseReference = await FirebaseDatabase.instance.ref();
+    Query query = databaseReference.child("Modules");
+    DatabaseEvent event = await query.once();
+    DataSnapshot snapshot = event.snapshot;
+
+    if (snapshot.value != null) {
+      snapshot.children.forEach((element) {
+        if (element.key == "Admin" &&
+            element.value != null &&
+            element.value != "") {
+          String adminString = element.value.toString();
+          List<String> adminList = adminString.split(', ');
+          adminList.forEach((element) {
+            if (element.trim() == "Add Questions") {
+              AppConstants.AdminModules?.add(ModulesModel(
+                  moduleName: "Add Questions", routeName: AppRoutes.AddQuestions, imagePath: AssetPath.add_questions_svg));
+              //hell.add({element: "AddQuestions"});
+            } else if (element.trim() == "Add Inspector") {
+              //hell.add({element: "AddSubUser"});
+              AppConstants.AdminModules?.add(ModulesModel(
+                  moduleName: "Add Inspector", routeName: AppRoutes.AddSubUser, imagePath: AssetPath.add_inspector_svg));
+            } else if (element.trim() == "Survey Report") {
+              AppConstants.AdminModules?.add(ModulesModel(
+                  moduleName: "Survey Report", routeName: AppRoutes.SurveyReport, imagePath: AssetPath.survey_report_svg));
+              //hell.add({element: "SurveyReport"});
+            } else if (element.trim() == "Take Survey") {
+              //hell.add({element: "FoodSurvey"});
+              AppConstants.AdminModules?.add(ModulesModel(
+                  moduleName: "Take Survey", routeName: AppRoutes.FoodSurvey, imagePath: AssetPath.take_survey_svg));
+            }
+          });
+        }
+        else if (element.key == "Inspector" &&
+            element.value != null &&
+            element.value != "") {
+          String inspectorString = element.value.toString();
+          List<String> inspectorList = inspectorString.split(', ');
+          print("inspectorList: $inspectorList");
+          inspectorList.forEach((element) {
+            print("element: $element");
+            if (element.trim() == "Take Survey") {
+              AppConstants.InspectorModules?.add(ModulesModel(
+                  moduleName: "Take Survey", routeName: AppRoutes.FoodSurvey, imagePath: AssetPath.take_survey_svg));
+              //hell.add({element: "FoodSurvey"});
+            }
+            else if (element.trim() == "Survey Report") {
+              print("entered in survey report");
+              AppConstants.InspectorModules?.add(ModulesModel(
+                  moduleName: "Survey Report", routeName: AppRoutes.InspectorSurveyReport, imagePath: AssetPath.survey_report_svg));
+              //hell.add({element: "SurveyReport"});
+            }
+          });
+        }
+        //hell.add({element.key!: element.value!});
+      });
+
+      print("AdminModules list: ${AppConstants.AdminModules?[0].moduleName}");
+      print("InspectorModules list: ${AppConstants.InspectorModules?[1].moduleName}");
+
+      // Convert to model class
+      /* List<ModulesModel> modulesList =
+          hell.map((map) => ModulesModel.fromJson(map)).toList();
+
+      if (modulesList.isNotEmpty) {
+        print("Modules list: ${modulesList[0].module}");
+        AppConstants.modules = modulesList;
+        print("Modules: ${AppConstants.modules?[0].module}");
+        notifyListeners(); // Notify listeners when data is updated
+      }
+    } else {
+      print("No data found under 'Modules'.");
+    } */
     }
   }
 

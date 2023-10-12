@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:inspection_app_flutter/model/moduels_model.dart';
 import 'package:inspection_app_flutter/res/components/reusable%20widgets/app_input_text.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
@@ -7,6 +8,7 @@ import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/viewmodel/add_questions_viewModel.dart';
 import 'package:inspection_app_flutter/viewmodel/food_survey_view_model.dart';
+import 'package:inspection_app_flutter/viewmodel/inspector_survey_report_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -15,28 +17,15 @@ class DashboardGridView extends StatelessWidget {
 
   DashboardGridView({super.key});
 
-  List<Map<String, dynamic>> items = [
-    {
-      "name": "Take Survey",
-      "imagePath": AssetPath.take_survey_svg,
-    },
-    {
-      "name": "Add Questions",
-      "imagePath": AssetPath.add_questions_svg,
-    },
-    {
-      "name": "Add Inspector",
-      "imagePath": AssetPath.add_inspector_svg,
-    },
-    {
-      "name": "Survey Report",
-      "imagePath": AssetPath.survey_report_svg,
-    }
+  List<ModulesModel> items = [
   ];
   @override
   Widget build(BuildContext context) {
     print("appconstants ${AppConstants.memberType}");
-
+    AppConstants.memberType == "Admin"
+        ? items = AppConstants.AdminModules ?? []
+        : items = AppConstants.InspectorModules ?? [];
+    /* print("items are ${items[1].moduleName}}"); */
     return SizedBox(
       child: GridView.builder(
         itemCount: items.length,
@@ -58,7 +47,7 @@ class DashboardGridView extends StatelessWidget {
                 //color:AppColors.white,
                 child: GestureDetector(
                   onTap: () {
-                    getDetails(context, items[index]["name"]);
+                    getDetails(context, items[index].moduleName ?? '', items[index].routeName ?? '');
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -76,7 +65,7 @@ class DashboardGridView extends StatelessWidget {
                           width: 50.0,
                         ), */
                         SvgPicture.asset(
-                          items[index]["imagePath"] ?? '',
+                          items[index].imagePath ?? '',
                           height: 50.0,
                           width: 50.0,
                           //color: AppColors.backgroundClr,
@@ -84,7 +73,7 @@ class DashboardGridView extends StatelessWidget {
                         AppInputText(
                           colors: AppColors.backgroundClr,
                           size: 16,
-                          text: items[index]["name"] ?? '',
+                          text: items[index].moduleName ?? '',
                           weight: FontWeight.normal,
                           /* textAlign: TextAlign.center,
                           text: items[index].serviceName ?? '',
@@ -103,28 +92,38 @@ class DashboardGridView extends StatelessWidget {
     );
   }
 
-  void getDetails(BuildContext context, String itemName) async {
+  void getDetails(BuildContext context, String itemName, String routeName) async {
     final addQuestionsViewModel =
         Provider.of<AddQuestionViewModel>(context, listen: false);
     final takeSurveyViewModel =
         Provider.of<FoodSurveyViewModel>(context, listen: false);
     final surveyReportViewModel =
         Provider.of<SurveyReportViewModel>(context, listen: false);
+        final inspectorSurveyReportViewModel =
+        Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
     switch (itemName) {
       case "Take Survey":
-        await takeSurveyViewModel.getQuestions();
-        Navigator.pushNamed(context, AppRoutes.FoodSurvey);
+        //await takeSurveyViewModel.getQuestions(context);
+        Navigator.pushNamed(context, routeName);
         break;
       case "Add Questions":
-        await addQuestionsViewModel.getRatingOptions();
-        Navigator.pushNamed(context, AppRoutes.AddQuestions);
+        //await addQuestionsViewModel.getRatingOptions(context);
+        await Navigator.pushNamed(context, routeName);
         break;
       case "Add Inspector":
-        Navigator.pushNamed(context, AppRoutes.AddSubUser);
+        Navigator.pushNamed(context, routeName);
         break;
       case "Survey Report":
-        await surveyReportViewModel.getSurveyReport();
-        Navigator.pushNamed(context, AppRoutes.SurveyReport);
+      if (AppConstants.memberType == "Admin")
+      {
+        //await surveyReportViewModel.getSurveyReport(context);
+        await Navigator.pushNamed(context, routeName);
+      }
+      else if (AppConstants.memberType == "Inspector") {
+        //await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
+        Navigator.pushNamed(context, routeName);
+      }
+        
         break;
       default:
         print('Please dont ask me');

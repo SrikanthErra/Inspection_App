@@ -108,7 +108,8 @@ class _mpinValidateState extends State<mpinValidate> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-                                onPressed: () {
+                                onPressed: () async{
+                                  await LocalStoreHelper().clearTheData();
                                   Navigator.pushNamed(context, AppRoutes.LoginPage);
                                 },
                                 child: Text(
@@ -200,7 +201,7 @@ class _mpinValidateState extends State<mpinValidate> {
             ),
           ),
         ),
-       // if (login_provider.getIsLoadingStatus) LoaderComponent()
+      if (mpinViewModel.getIsLoadingStatus) LoaderComponent()
       ],
     );
   }

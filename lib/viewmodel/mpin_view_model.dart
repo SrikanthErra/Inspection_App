@@ -5,8 +5,15 @@ import 'package:inspection_app_flutter/res/app_alerts/SuccessCutomAlerts.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
+import 'package:inspection_app_flutter/utils/internet_check.dart';
 
 class MpinViewModel extends ChangeNotifier {
+  bool _isLoading = false;
+  bool get getIsLoadingStatus => _isLoading;
+  setIsLoadingStatus(bool status) {
+    _isLoading = status;
+    notifyListeners();
+  }
   /* getdata(MPIN) async {
     phoneNumber = await LocalStoreHelper().readTheData("mobileNumber");
     print("phone number is $phoneNumber");
@@ -30,6 +37,8 @@ class MpinViewModel extends ChangeNotifier {
   });
   } */
 
+  
+
   reserMpin(mpin, confirmMpin, context) {
     if (mpin.length == 4 && mpin.isNotEmpty) {
       if (confirmMpin.length == 4 && confirmMpin.isNotEmpty) {
@@ -42,7 +51,7 @@ class MpinViewModel extends ChangeNotifier {
                   descriptions: 'Mpin for user is Reset Successfully',
                   Buttontext: 'OK',
                   onPressed: () async {
-                    resetMpin(mpin, context);
+                    await resetMpin(mpin, context);
                     //getdata(_mpin.text);
                     /* DatabaseHelper.instance
                                         .UpdateMpin(_mpin.text, mobile); */
@@ -165,6 +174,9 @@ class MpinViewModel extends ChangeNotifier {
     String memberType = await LocalStoreHelper().readTheData("membertype");
     AppConstants.userName = await LocalStoreHelper().readTheData("name");
     AppConstants.memberType = memberType;
+    AppConstants.memberkey = await LocalStoreHelper().readTheData("memberKey");
+    AppConstants.mobileNumber =
+        await LocalStoreHelper().readTheData("mobileNumber");
     if (memberType == "Admin") {
       AppConstants.adminFlag = true;
       AppConstants.inspectorFlag = false;
@@ -178,7 +190,6 @@ class MpinViewModel extends ChangeNotifier {
       return true;
     } else {
       return false;
-      
     }
     //notifyListeners();
   }
@@ -186,21 +197,40 @@ class MpinViewModel extends ChangeNotifier {
   resetMpin(MPIN, context) async {
     String phoneNumber = await LocalStoreHelper().readTheData("mobileNumber");
     print("phone number is $phoneNumber");
-    final ref = FirebaseDatabase.instance.ref().child("LogIN");
-    ref
-        .orderByChild('mobileNumber')
-        .equalTo(phoneNumber)
-        .once()
-        .then((DatabaseEvent snapshot) {
-      // Change the parameter type to DatabaseEvent
-      if (snapshot.snapshot.value != null) {
-        Map<dynamic, dynamic> values =
-            snapshot.snapshot.value as Map<dynamic, dynamic>;
-        ;
-        values.forEach((key, value) {
-          ref.child(key).update({"mpin": MPIN});
-        });
-      }
-    });
+    bool isConnected = await InternetCheck().hasInternetConnection();
+    if (isConnected) {
+      setIsLoadingStatus(true);
+      final ref = await FirebaseDatabase.instance.ref().child("LogIN");
+      ref
+          .orderByChild('mobileNumber')
+          .equalTo(phoneNumber)
+          .once()
+          .then((DatabaseEvent snapshot) {
+        // Change the parameter type to DatabaseEvent
+        if (snapshot.snapshot.value != null) {
+          setIsLoadingStatus(false);
+          Map<dynamic, dynamic> values =
+              snapshot.snapshot.value as Map<dynamic, dynamic>;
+          ;
+          values.forEach((key, value) {
+            ref.child(key).update({"mpin": MPIN});
+          });
+        }
+      });
+    } else {
+      setIsLoadingStatus(false);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              title: 'NO INTERNET',
+              descriptions: "Please check your internet connection",
+              Buttontext: 'OK',
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          });
+    }
   }
 }
