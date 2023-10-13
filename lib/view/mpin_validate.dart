@@ -36,6 +36,7 @@ class _mpinValidateState extends State<mpinValidate> {
   @override
   Widget build(BuildContext context) {
     final mpinViewModel = Provider.of<MpinViewModel>(context, listen: false);
+    print("getIsLoadingStatus in take survey screen is ${mpinViewModel.getIsLoadingStatus}");
     //final arg = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
 
     return Stack(
@@ -43,14 +44,22 @@ class _mpinValidateState extends State<mpinValidate> {
         Scaffold(
           // resizeToAvoidBottomInset: true,
           body: Container(
-            color: AppColors.backgroundClr,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [AppColors.background1, AppColors.background2],
+            )),
             child: Center(
               child: SingleChildScrollView(
                 child: Container(
                   height: MediaQuery.of(context).size.height * 0.45,
-                  width: MediaQuery.of(context).size.width * 0.95,
+                  width: MediaQuery.of(context).size.width * 0.85,
                   child: Card(
                     color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +97,7 @@ class _mpinValidateState extends State<mpinValidate> {
                           borderRadius: BorderRadius.circular(10.0),
                           keyboardType: TextInputType.number,
                           autoHideKeyboard: true,
-                          fieldBackgroundColor: AppColors.backgroundClr,
+                          fieldBackgroundColor: AppColors.background1,
                           borderColor: Colors.grey,
                           textStyle: TextStyle(
                             color: AppColors.textcolorwhite,
@@ -108,9 +117,10 @@ class _mpinValidateState extends State<mpinValidate> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-                                onPressed: () async{
+                                onPressed: () async {
                                   await LocalStoreHelper().clearTheData();
-                                  Navigator.pushNamed(context, AppRoutes.LoginPage);
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.LoginPage);
                                 },
                                 child: Text(
                                   "Not You?",
@@ -130,7 +140,8 @@ class _mpinValidateState extends State<mpinValidate> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, AppRoutes.ResetMpin,
+                                  Navigator.pushNamed(
+                                      context, AppRoutes.ResetMpin,
                                       arguments: phoneNumber);
                                 },
                                 child: Text(
@@ -154,28 +165,17 @@ class _mpinValidateState extends State<mpinValidate> {
                         ),
                         ButtonComponent(
                             onPressed: () async {
-                              if (_mpin.text.isNotEmpty && _mpin.text.length == 4) {
-                                bool flag = await mpinViewModel
+                              if (_mpin.text.isNotEmpty &&
+                                  _mpin.text.length == 4) {
+                               bool flag = await mpinViewModel
                                     .mpinValidateLoginCall(_mpin.text, context);
                                 if (flag) {
+                                  print("falg is $flag");
                                 } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return CustomDialogBox(
-                                          title: "WRONG MPIN",
-                                          descriptions: "Please Enter Valid MPIN",
-                                          Buttontext: "OK",
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            _mpin.text = "";
-                                            setState(() {
-                                              
-                                            });
-                                          },
-                                          bgColor: Colors.red[900],
-                                        );
-                                      });
+                                  print("falg is $flag");
+                                  setState(() {
+                                    _mpin.text = "";
+                                  });
                                 }
                               } else {
                                 showDialog(
@@ -183,7 +183,8 @@ class _mpinValidateState extends State<mpinValidate> {
                                     builder: (BuildContext context) {
                                       return CustomDialogBox(
                                         title: "INVALID MPIN",
-                                        descriptions: "Please enter 4 digit MPIN",
+                                        descriptions:
+                                            "Please enter 4 digit MPIN",
                                         Buttontext: "OK",
                                         onPressed: () {
                                           Navigator.of(context).pop();
@@ -201,7 +202,7 @@ class _mpinValidateState extends State<mpinValidate> {
             ),
           ),
         ),
-      if (mpinViewModel.getIsLoadingStatus) LoaderComponent()
+        if (mpinViewModel.getIsLoadingStatus) LoaderComponent()
       ],
     );
   }

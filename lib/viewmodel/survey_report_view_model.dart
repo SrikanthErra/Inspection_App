@@ -1,7 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
 import 'package:inspection_app_flutter/utils/internet_check.dart';
+import 'package:inspection_app_flutter/utils/loader.dart';
 
 class SurveyReportViewModel extends ChangeNotifier {
   bool _isLoading = false;
@@ -29,7 +31,11 @@ class SurveyReportViewModel extends ChangeNotifier {
     bool isConnected = await InternetCheck().hasInternetConnection();
     if (isConnected) {
       print("--------------------getSurveyReport-------------------");
-      
+      //setIsLoadingStatus(true);
+      if (getIsLoadingStatus) {
+        LoaderComponent();
+        //EasyLoading.show(status: 'loading...');
+      }
       try {
         final databaseReference = await FirebaseDatabase.instance.ref();
         Query query = databaseReference.child("SurveyAnswers");

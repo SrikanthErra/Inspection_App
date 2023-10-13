@@ -57,16 +57,15 @@ class _AddQuestionsState extends State<AddQuestions> {
       final addQuestionsViewModel =
           Provider.of<AddQuestionViewModel>(context, listen: false);
       await addQuestionsViewModel.getRatingOptions(context);
-      setState(() {
-        
-      });
+      setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final addQuestionsViewModel =
-        Provider.of<AddQuestionViewModel>(context,);
+    final addQuestionsViewModel = Provider.of<AddQuestionViewModel>(
+      context,
+    );
     print("addQuestionsViewModel.isLoading ${addQuestionsViewModel.isLoading}");
     return Stack(
       children: [
@@ -77,6 +76,9 @@ class _AddQuestionsState extends State<AddQuestions> {
           child: SingleChildScrollView(
             child: Card(
               color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Column(
                 children: [
                   SizedBox(
@@ -230,7 +232,6 @@ class _AddQuestionsState extends State<AddQuestions> {
             ),
           ),
         ),
-        
         if (addQuestionsViewModel.isLoading) LoaderComponent()
       ],
     );

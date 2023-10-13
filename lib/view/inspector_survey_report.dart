@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/res/components/base_scaffold.dart';
+import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/utils/loader.dart';
 import 'package:inspection_app_flutter/viewmodel/inspector_survey_report_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
@@ -76,20 +77,18 @@ class InspectorSurveyReportState extends State<InspectorSurveyReport> {
       final inspectorSurveyReportViewModel =
           Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
       await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
-      setState(() {
-        
-      });
+      setState(() {});
     });
   }
+
   @override
   Widget build(BuildContext context) {
     final inspectorSurveyReportViewModel =
         Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
+
+    print(
+        "inspectorSurveyReportViewModel.dataMap ${inspectorSurveyReportViewModel.dataMap}");
     final chart = PieChart(
-      /* centerTextStyle: TextStyle(
-        fontSize: 30,
-        color: Colors.black,
-      ), */
       key: ValueKey(key),
       dataMap: inspectorSurveyReportViewModel.dataMap,
       animationDuration: const Duration(milliseconds: 800),
@@ -101,7 +100,6 @@ class InspectorSurveyReportState extends State<InspectorSurveyReport> {
       centerText: _showCenterText ? "Report" : null,
       //legendLabels: _showLegendLabel ? legendLabels : {},
       legendOptions: LegendOptions(
-        
         showLegendsInRow: _showLegendsInRow,
         legendPosition: _legendPosition!,
         showLegends: _showLegends,
@@ -109,12 +107,9 @@ class InspectorSurveyReportState extends State<InspectorSurveyReport> {
             ? BoxShape.circle
             : BoxShape.rectangle,
         legendTextStyle: const TextStyle(
-          fontWeight: FontWeight.normal,
-          fontSize: 30
-        ),
+            fontWeight: FontWeight.normal, fontSize: 30, color: Colors.black),
       ),
       chartValuesOptions: ChartValuesOptions(
-        
         showChartValueBackground: _showChartValueBackground,
         showChartValues: _showChartValues,
         chartValueStyle: TextStyle(
@@ -153,40 +148,46 @@ class InspectorSurveyReportState extends State<InspectorSurveyReport> {
           AppBarvis: true,
           titleName: "Survey Report",
           child: Center(
-            child: LayoutBuilder(
-              builder: (_, constraints) {
-                if (constraints.maxWidth >= 600) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        flex: 3,
-                        fit: FlexFit.tight,
-                        child: chart,
-                      ),
-                      /* Flexible(
-                        flex: 2,
-                        fit: FlexFit.tight,
-                        child: settings,
-                      ) */
-                    ],
-                  );
-                } else {
-                  return SingleChildScrollView(
-                    child: Column(
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  if (constraints.maxWidth >= 600) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 32,
-                          ),
+                        Flexible(
+                          flex: 3,
+                          fit: FlexFit.tight,
                           child: chart,
                         ),
-                        //settings,
+                        /* Flexible(
+                          flex: 2,
+                          fit: FlexFit.tight,
+                          child: settings,
+                        ) */
                       ],
-                    ),
-                  );
-                }
-              },
+                    );
+                  } else {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 32,
+                            ),
+                            child: chart,
+                          ),
+                          //settings,
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ),

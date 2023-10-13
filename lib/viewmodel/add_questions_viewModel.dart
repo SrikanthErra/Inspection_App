@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:inspection_app_flutter/model/questions_insert_model.dart';
+import 'package:inspection_app_flutter/res/app_alerts/SuccessCutomAlerts.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/utils/internet_check.dart';
@@ -32,13 +33,13 @@ class AddQuestionViewModel extends ChangeNotifier {
       print("loader is $isLoading");
       //EasyLoading.show(status: 'loading...');
       final databaseReference = await FirebaseDatabase.instance.ref();
-      Query query = databaseReference.child("RatingOptions").orderByChild("25");
+      Query query = databaseReference.child("RatingOptions");
       DatabaseEvent event = await query.once();
       DataSnapshot snapshot = event.snapshot;
       print("len is ${snapshot.children.length}");
 
       if (snapshot.value != null) {
-        EasyLoading.dismiss();
+        //EasyLoading.dismiss();
         snapshot.children.forEach((element) {
           print("element:${element.key} ${element.value}");
           String ratingOptionsString = element.value.toString();
@@ -148,7 +149,24 @@ class AddQuestionViewModel extends ChangeNotifier {
               s100: opt100,
             ).toJson());
         setIsLoadingStatus(false);
-        await Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return SuccessCustomAlert(
+              title: 'QUESTION ADDED SUCCESSFULLY',
+              descriptions: 'Questions data added Successfully',
+              Buttontext: 'OK',
+              onPressed: () async {
+                //await resetMpin(mpin, context);
+                //getdata(_mpin.text);
+                /* DatabaseHelper.instance
+                                        .UpdateMpin(_mpin.text, mobile); */
+                Navigator.pushReplacementNamed(
+                    context, AppRoutes.DashboardView);
+              },
+            );
+          });
+        //await Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
       } else {
         setIsLoadingStatus(false);
         showDialog(

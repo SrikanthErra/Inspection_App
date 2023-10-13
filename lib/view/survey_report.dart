@@ -84,55 +84,55 @@ class SurveyReportState extends State<SurveyReport> {
   Widget build(BuildContext context) {
     final surveyReportViewModel =
         Provider.of<SurveyReportViewModel>(context, listen: false);
-    final chart = PieChart(
-      /* centerTextStyle: TextStyle(
+    final chart = surveyReportViewModel.dataMap.isNotEmpty
+        ? PieChart(
+            /* centerTextStyle: TextStyle(
         fontSize: 30,
         color: Colors.black,
       ), */
-      key: ValueKey(key),
-      dataMap: surveyReportViewModel.dataMap,
-      animationDuration: const Duration(milliseconds: 800),
-      chartLegendSpacing: _chartLegendSpacing!,
-      chartRadius: math.min(MediaQuery.of(context).size.width / 1, 300),
-      colorList: colorList,
-      initialAngleInDegree: 0,
-      chartType: _chartType!,
-      centerText: _showCenterText ? "Report" : null,
-      //legendLabels: _showLegendLabel ? legendLabels : {},
-      legendOptions: LegendOptions(
-        
-        showLegendsInRow: _showLegendsInRow,
-        legendPosition: _legendPosition!,
-        showLegends: _showLegends,
-        legendShape: _legendShape == LegendShape.circle
-            ? BoxShape.circle
-            : BoxShape.rectangle,
-        legendTextStyle: const TextStyle(
-          fontWeight: FontWeight.normal,
-          fontSize: 30
-        ),
-      ),
-      chartValuesOptions: ChartValuesOptions(
-        
-        showChartValueBackground: _showChartValueBackground,
-        showChartValues: _showChartValues,
-        chartValueStyle: TextStyle(
-          fontSize: 20,
-          color: Colors.black,
-        ),
-        showChartValuesInPercentage: _showChartValuesInPercentage,
-        showChartValuesOutside: _showChartValuesOutside,
-      ),
-      //totalValue: 100,
-      ringStrokeWidth: _ringStrokeWidth!,
-      emptyColor: Colors.grey,
-      gradientList: _showGradientColors ? gradientList : null,
-      emptyColorGradient: const [
-        Color(0xff6c5ce7),
-        Colors.blue,
-      ],
-      baseChartColor: Colors.transparent,
-    );
+            key: ValueKey(key),
+            dataMap: surveyReportViewModel.dataMap,
+            animationDuration: const Duration(milliseconds: 800),
+            chartLegendSpacing: _chartLegendSpacing!,
+            chartRadius: math.min(MediaQuery.of(context).size.width / 1, 300),
+            colorList: colorList,
+            initialAngleInDegree: 0,
+            chartType: _chartType!,
+            centerText: _showCenterText ? "Report" : null,
+            //legendLabels: _showLegendLabel ? legendLabels : {},
+            legendOptions: LegendOptions(
+              showLegendsInRow: _showLegendsInRow,
+              legendPosition: _legendPosition!,
+              showLegends: _showLegends,
+              legendShape: _legendShape == LegendShape.circle
+                  ? BoxShape.circle
+                  : BoxShape.rectangle,
+              legendTextStyle: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 30,
+                  color: Colors.black),
+            ),
+            chartValuesOptions: ChartValuesOptions(
+              showChartValueBackground: _showChartValueBackground,
+              showChartValues: _showChartValues,
+              chartValueStyle: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+              showChartValuesInPercentage: _showChartValuesInPercentage,
+              showChartValuesOutside: _showChartValuesOutside,
+            ),
+            //totalValue: 100,
+            ringStrokeWidth: _ringStrokeWidth!,
+            emptyColor: Colors.grey,
+            gradientList: _showGradientColors ? gradientList : null,
+            emptyColorGradient: const [
+              Color(0xff6c5ce7),
+              Colors.blue,
+            ],
+            baseChartColor: Colors.transparent,
+          )
+        : SizedBox();
     return Stack(
       children: [
         BaseScaffold(
@@ -152,40 +152,46 @@ class SurveyReportState extends State<SurveyReport> {
           AppBarvis: true,
           titleName: "Survey Report",
           child: Center(
-            child: LayoutBuilder(
-              builder: (_, constraints) {
-                if (constraints.maxWidth >= 600) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        flex: 3,
-                        fit: FlexFit.tight,
-                        child: chart,
-                      ),
-                      /* Flexible(
-                        flex: 2,
-                        fit: FlexFit.tight,
-                        child: settings,
-                      ) */
-                    ],
-                  );
-                } else {
-                  return SingleChildScrollView(
-                    child: Column(
+            child: Card(
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: LayoutBuilder(
+                builder: (_, constraints) {
+                  if (constraints.maxWidth >= 600) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 32,
-                          ),
+                        Flexible(
+                          flex: 3,
+                          fit: FlexFit.tight,
                           child: chart,
                         ),
-                        //settings,
+                        /* Flexible(
+                          flex: 2,
+                          fit: FlexFit.tight,
+                          child: settings,
+                        ) */
                       ],
-                    ),
-                  );
-                }
-              },
+                    );
+                  } else {
+                    return SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 32,
+                            ),
+                            child: chart,
+                          ),
+                          //settings,
+                        ],
+                      ),
+                    );
+                  }
+                },
+              ),
             ),
           ),
         ),

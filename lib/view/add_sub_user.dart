@@ -62,9 +62,13 @@ class _AddSubUserState extends State<AddSubUser> {
                 child: Center(
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.45,
-                    width: MediaQuery.of(context).size.width * 0.95,
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    margin: EdgeInsets.only(top: 20),
                     child: Card(
                       color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         // crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,6 +85,7 @@ class _AddSubUserState extends State<AddSubUser> {
                             ),
                           ),
                           AppInputTextfield(
+                            textfieldwidth: MediaQuery.of(context).size.width * 0.7,
                             hintText: "Inspector Name",
                             nameController: family_name,
                             inputFormatters: [
@@ -114,6 +119,7 @@ class _AddSubUserState extends State<AddSubUser> {
                             globalKey: _formkey2,
                           ), */
                           AppInputTextfield(
+                            textfieldwidth: MediaQuery.of(context).size.width * 0.7,
                             hintText: "mobile Number",
                             nameController: mobileNumber,
                             errorMessage: "Please enter mobile number",
@@ -188,7 +194,7 @@ class _AddSubUserState extends State<AddSubUser> {
                                     );
                                   } else {
                                     await addInspectorModel.insertInspectorData(family_name.text, mobileNumber.text, context);
-                                    Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
+                                    //Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
                                   }
                                 }
                               },

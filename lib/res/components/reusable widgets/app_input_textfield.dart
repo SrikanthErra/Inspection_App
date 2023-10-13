@@ -46,7 +46,7 @@ class AppInputTextfield extends StatelessWidget {
       this.onChanged,
       this.length,
       this.inputFormatters,
-      this.autofocus});
+      this.autofocus, this.textfieldwidth});
   final String hintText, errorMessage;
   final TextEditingController nameController;
   final TextInputType input_type;
@@ -60,6 +60,7 @@ class AppInputTextfield extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final int? length;
   final List<TextInputFormatter>? inputFormatters;
+  final double? textfieldwidth;
   final bool? autofocus;
   final void Function()? onTap;
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class AppInputTextfield extends StatelessWidget {
         child: Form(
           key: globalKey,
           child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.85,
+            width: textfieldwidth ?? MediaQuery.of(context).size.width * 0.85,
             child: TextFormField(
               autofocus: autofocus ?? false,
               maxLength: length,

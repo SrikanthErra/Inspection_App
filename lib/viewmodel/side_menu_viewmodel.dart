@@ -19,10 +19,14 @@ class SideMenuViewModel with ChangeNotifier {
     BuildContext context,
     subtitle,
   ) async {
-    final addQuestionsViewModel = Provider.of<AddQuestionViewModel>(context, listen: false);
-    final takeSurveyViewModel = Provider.of<FoodSurveyViewModel>(context, listen: false);
-    final surveyReportViewModel = Provider.of<SurveyReportViewModel>(context, listen: false);
-    final inspectorSurveyReportViewModel = Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
+    final addQuestionsViewModel =
+        Provider.of<AddQuestionViewModel>(context, listen: false);
+    final takeSurveyViewModel =
+        Provider.of<FoodSurveyViewModel>(context, listen: false);
+    final surveyReportViewModel =
+        Provider.of<SurveyReportViewModel>(context, listen: false);
+    final inspectorSurveyReportViewModel =
+        Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
     if (subtitle == 'Home') {
       Navigator.pop(context);
       Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
@@ -31,7 +35,6 @@ class SideMenuViewModel with ChangeNotifier {
       Navigator.pop(context);
       Navigator.pushNamed(context, AppRoutes.FoodSurvey);
     } else if (subtitle == 'Add Inspector') {
-      
       Navigator.pop(context);
       Navigator.pushNamed(
         context,
@@ -40,57 +43,54 @@ class SideMenuViewModel with ChangeNotifier {
     } else if (subtitle == 'Add Questions') {
       //await addQuestionsViewModel.getRatingOptions(context);
       Navigator.pop(context);
-      Navigator.pushNamed(
+      await Navigator.pushNamed(
         context,
         AppRoutes.AddQuestions,
       );
-    } 
-    else if (subtitle == 'Survey Report' && AppConstants.memberType == 'Admin') {
+    } else if (subtitle == 'Survey Report' &&
+        AppConstants.memberType == 'Admin') {
       //await surveyReportViewModel.getSurveyReport(context);
       Navigator.pop(context);
-      Navigator.pushNamed(
+      await Navigator.pushNamed(
         context,
         AppRoutes.SurveyReport,
       );
-    }
-    else if (subtitle == 'Survey Report' && AppConstants.memberType == 'Inspector') {
+    } else if (subtitle == 'Survey Report' &&
+        AppConstants.memberType == 'Inspector') {
       print("enter in inspector survey report");
       //await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
       Navigator.pop(context);
-      Navigator.pushNamed(
+      await Navigator.pushNamed(
         context,
         AppRoutes.InspectorSurveyReport,
       );
-    }
-    else if (subtitle == 'App Info') {
+    } else if (subtitle == 'App Info') {
       Navigator.pop(context);
-      Navigator.pushNamed(context, AppRoutes.AppInfoScreen);
-    } 
-    else if (subtitle == 'Privacy Policy') {
+      await Navigator.pushNamed(context, AppRoutes.AppInfoScreen);
+    } else if (subtitle == 'Privacy Policy') {
       Navigator.pop(context);
-      Navigator.pushNamed(context, AppRoutes.PrivacyPolicyView);
-    }
-    else if (subtitle == 'Exit application') {
+      await Navigator.pushNamed(context, AppRoutes.PrivacyPolicyView);
+    } else if (subtitle == 'Exit application') {
       Navigator.pop(context);
       showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CustomWarningAlert(
-                descriptions: "Are you sure you want to exit the application?",
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                Img: AssetPath.WarningBlueIcon,
-                onPressed1: () {
-                  if (Platform.isAndroid) {
-                    SystemNavigator.pop();
-                  } else if (Platform.isIOS) {
-                    exit(0);
-                  }
-                },
-               // version: "verson1111" ?? ''
-                );
+            descriptions: "Are you sure you want to exit the application?",
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            Img: AssetPath.WarningBlueIcon,
+            onPressed1: () {
+              if (Platform.isAndroid) {
+                SystemNavigator.pop();
+              } else if (Platform.isIOS) {
+                exit(0);
+              }
+            },
+            // version: "verson1111" ?? ''
+          );
         },
       );
     } else if (subtitle == 'Logout') {
@@ -100,19 +100,18 @@ class SideMenuViewModel with ChangeNotifier {
         context: context,
         builder: (BuildContext context) {
           return CustomWarningAlert(
-              descriptions:  "Are you sure you want to logout the application?",
+              descriptions: "Are you sure you want to logout the application?",
               onPressed: () {
                 Navigator.pop(context);
               },
               Img: AssetPath.WarningBlueIcon,
-              onPressed1: () async{
+              onPressed1: () async {
                 await LocalStoreHelper().clearTheData();
                 Navigator.pushReplacementNamed(context, AppRoutes.LoginPage);
               }
-                  
+
               //version: /* AppConstants.version_number ?? */ ''
               );
-          
         },
       );
     }

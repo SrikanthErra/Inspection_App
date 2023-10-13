@@ -1,7 +1,9 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/model/user_insert_model.dart';
+import 'package:inspection_app_flutter/res/app_alerts/SuccessCutomAlerts.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
+import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/utils/internet_check.dart';
 
 class AddInspectorViewModel extends ChangeNotifier {
@@ -126,6 +128,23 @@ class AddInspectorViewModel extends ChangeNotifier {
             mpin: '-',
           ).toJson());
       setIsLoadingStatus(false);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return SuccessCustomAlert(
+              title: 'INSPECTOR ADDED SUCCESSFULLY',
+              descriptions: 'Inspector data added Successfully',
+              Buttontext: 'OK',
+              onPressed: () async {
+                //await resetMpin(mpin, context);
+                //getdata(_mpin.text);
+                /* DatabaseHelper.instance
+                                        .UpdateMpin(_mpin.text, mobile); */
+                Navigator.pushReplacementNamed(
+                    context, AppRoutes.DashboardView);
+              },
+            );
+          });
     } else {
       setIsLoadingStatus(false);
       showDialog(

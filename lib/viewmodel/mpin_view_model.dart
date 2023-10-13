@@ -37,8 +37,6 @@ class MpinViewModel extends ChangeNotifier {
   });
   } */
 
-  
-
   reserMpin(mpin, confirmMpin, context) {
     if (mpin.length == 4 && mpin.isNotEmpty) {
       if (confirmMpin.length == 4 && confirmMpin.isNotEmpty) {
@@ -170,6 +168,7 @@ class MpinViewModel extends ChangeNotifier {
   }
 
   mpinValidateLoginCall(String mpin, context) async {
+    setIsLoadingStatus(true);
     String Mpin = await LocalStoreHelper().readTheData("mpin");
     String memberType = await LocalStoreHelper().readTheData("membertype");
     AppConstants.userName = await LocalStoreHelper().readTheData("name");
@@ -186,9 +185,26 @@ class MpinViewModel extends ChangeNotifier {
       AppConstants.inspectorFlag = true;
     }
     if (Mpin == mpin) {
-      Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
+      await Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
+      setIsLoadingStatus(false);
       return true;
     } else {
+      setIsLoadingStatus(false);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialogBox(
+              wrongFlag: true,
+              title: "WRONG MPIN",
+              descriptions: "Please Enter Valid MPIN",
+              Buttontext: "OK",
+              onPressed: () {
+                Navigator.of(context).pop();
+                notifyListeners();
+              },
+              bgColor: Colors.red[900],
+            );
+          });
       return false;
     }
     //notifyListeners();

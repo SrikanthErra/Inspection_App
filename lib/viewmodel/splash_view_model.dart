@@ -173,7 +173,8 @@ class SplashViewModel extends ChangeNotifier {
   } */
 
   navigationflow(context) async {
-    String? MPIN = await LocalStoreHelper().readTheData("mpin") ?? '';
+    Navigator.pushReplacementNamed(context, AppRoutes.SplashTwoScreen);
+    /* String? MPIN = await LocalStoreHelper().readTheData("mpin") ?? '';
     print("mpin is $MPIN");
     String? mobileNumber =
         await LocalStoreHelper().readTheData("mobileNumber") ?? '';
@@ -196,10 +197,10 @@ class SplashViewModel extends ChangeNotifier {
 
     else {
       Future.delayed(Duration(seconds: 0), () {
-        Navigator.pushNamed(context, AppRoutes.SplashTwoScreen);
+        Navigator.pushNamed(context, AppRoutes.LoginPage);
       });
       //Navigator.pushNamed(context, AppRoutes.LoginPage);
-    }
+    } */
   }
 
   getModules() async {

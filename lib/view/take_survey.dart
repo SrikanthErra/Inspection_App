@@ -24,7 +24,7 @@ class _FoodSurveyState extends State<FoodSurvey> {
   String name = '';
   String mobileNumber = '';
 
-  @override
+  /* @override
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -37,15 +37,17 @@ class _FoodSurveyState extends State<FoodSurvey> {
       await foodSurveyViewModel.getQuestions(context);
       setState(() {});
     });
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     final foodSurveyViewModel =
         Provider.of<FoodSurveyViewModel>(context, listen: false);
+    print(
+        "getIsLoadingStatus in take survey screen is ${foodSurveyViewModel.getIsLoadingStatus}");
     return Stack(
       children: [
-            BaseScaffold(
+        BaseScaffold(
             AppBarvis: true,
             titleName: "Inspection Survey",
             child: SingleChildScrollView(
@@ -96,7 +98,8 @@ class _FoodSurveyState extends State<FoodSurvey> {
                                               GetQuestionsList["question"]),
                                           RadioGroup<String>.builder(
                                             direction: Axis.vertical,
-                                            groupValue: selectedValues[index] ?? '',
+                                            groupValue:
+                                                selectedValues[index] ?? '',
                                             /* onChanged: (value) {
                                               setState(() {
                                                 DateTime now = DateTime.now();
@@ -136,11 +139,12 @@ class _FoodSurveyState extends State<FoodSurvey> {
                                                     "submitAnswers is ${submitAnswers[index].questionId}");
                                               });
                                             }, */
-    
+
                                             onChanged: (value) => setState(() {
                                               DateTime now = DateTime.now();
-    
-                                              selectedValues[index] = value ?? '';
+
+                                              selectedValues[index] =
+                                                  value ?? '';
                                               print(
                                                   "selected question ${GetQuestionsList["question"]}");
                                               print(
@@ -149,7 +153,7 @@ class _FoodSurveyState extends State<FoodSurvey> {
                                                   "selected list $selectedValues");
                                               String?
                                                   key; // Initialize a variable to store the key.
-    
+
                                               GetQuestionsList.forEach((k, v) {
                                                 if (v == value) {
                                                   key =
@@ -157,30 +161,33 @@ class _FoodSurveyState extends State<FoodSurvey> {
                                                 }
                                               });
                                               print("key is $key");
-                                              int index1 = submitAnswers.indexWhere(
-                                                  (element) =>
+                                              int index1 = submitAnswers
+                                                  .indexWhere((element) =>
                                                       element.questionId ==
                                                       GetQuestionsList[
                                                           "questionID"]);
-    
+                                              print("index1 is $index1");
+
                                               SubmitAnswersModel newModel =
                                                   SubmitAnswersModel(
                                                       name: name,
                                                       time: now.toString(),
                                                       mobile: mobileNumber,
-                                                      question: GetQuestionsList[
-                                                          "question"],
+                                                      question:
+                                                          GetQuestionsList[
+                                                              "question"],
                                                       answer: value ?? '',
                                                       answerPercent: key ?? '',
-                                                      questionId: GetQuestionsList[
-                                                          "questionID"]);
+                                                      questionId:
+                                                          GetQuestionsList[
+                                                              "questionID"]);
                                               if (index1 == -1) {
                                                 submitAnswers.add(newModel);
                                               } else {
                                                 // Replace the entire SubmitAnswersModel at the existing index
                                                 submitAnswers[index] = newModel;
                                               }
-    
+
                                               print(
                                                   "submitAnswers is ${submitAnswers[0].questionId}");
                                             }),
@@ -204,26 +211,29 @@ class _FoodSurveyState extends State<FoodSurvey> {
                     ),
                   ),
                   ButtonComponent(
-                      buttonColor: Colors.white,
-                      textColor: AppColors.backgroundClr,
+                      //buttonColor: Colors.white,
+                      textColor: AppColors.background1,
+                      buttonColors: [Colors.white, Colors.white],
                       onPressed: () async {
                         print("submitAnswers len is ${submitAnswers.length}");
                         print(
                             "ques len is ${foodSurveyViewModel.questions.length}");
-    
-                        if (await foodSurveyViewModel.submitAnswers(
+                        await foodSurveyViewModel.submitAnswers(
+                            submitAnswers, context);
+
+                        /* if (await foodSurveyViewModel.submitAnswers(
                             submitAnswers, context)) {
                           await Navigator.pushReplacementNamed(
                               context, AppRoutes.DashboardView);
-                        }
+                        } */
                         //
                       },
                       buttonText: "SUBMIT")
                 ],
               ),
             )),
-            if (foodSurveyViewModel.getIsLoadingStatus) LoaderComponent()
-          ],
+        if (foodSurveyViewModel.getIsLoadingStatus) LoaderComponent()
+      ],
     );
   }
 

@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
+import 'package:inspection_app_flutter/viewmodel/splash_two_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/splash_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -31,10 +32,10 @@ class _SplashTwoScreenState extends State<SplashTwoScreen> {
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            //color: clr,
-            /* image: DecorationImage(
+              //color: clr,
+              /* image: DecorationImage(
                 image: AssetImage(AssetPath.splash), fit: BoxFit.cover), */
-          ),
+              ),
           child: Image.network(
             AppConstants.appLogo ?? '',
             errorBuilder: (context, error, stackTrace) {
@@ -55,9 +56,12 @@ class _SplashTwoScreenState extends State<SplashTwoScreen> {
   initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      Future.delayed(Duration(seconds: 2), () {
+      final splash_two_provider =
+          Provider.of<SplashTwoViewModel>(context, listen: false);
+      await splash_two_provider.navigationflow(context);
+      /* Future.delayed(Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(context, AppRoutes.LoginPage);
-      });
+      }); */
       //await getAppConstantsdata(context);
     });
   }

@@ -130,8 +130,10 @@ class LogInViewModel extends ChangeNotifier {
         String mpin = await LocalStoreHelper().readTheData("mpin");
         print("mpin is $mpin");
         if (mpin != '-') {
+          setIsLoadingStatus(false);
           Navigator.pushNamed(context, AppRoutes.mpinValidate);
         } else {
+          setIsLoadingStatus(false);
           Navigator.pushNamed(context, AppRoutes.setMpinPage);
         }
       }

@@ -102,15 +102,22 @@ class _SideMenuViewState extends State<SideMenuView> {
           Expanded(
             flex: /*  SizerUtil.deviceType == DeviceType.tablet ? 3 :  */ 2,
             child: Container(
-              color: AppColors.backgroundClr,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [AppColors.background1, AppColors.background2],
+              )),
               width: double.infinity,
               //height: 30.h,
               child: Image.network(
                 AppConstants.appLogo ?? '',
+                height: 20,
+                width: 20,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    height: 150,
-                    width: 150,
+                    height: 50,
+                    width: 50,
                     child: SvgPicture.asset(
                       AssetPath.no_uploaded,
                     ),

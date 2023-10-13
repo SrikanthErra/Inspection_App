@@ -35,10 +35,13 @@ class _ResetMpintate extends State<ResetMpin> {
           child: Center(
             child: SingleChildScrollView(
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.52,
+                //height: MediaQuery.of(context).size.height * 0.55,
                 width: MediaQuery.of(context).size.width * 0.95,
                 child: Card(
                   color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,7 +79,7 @@ class _ResetMpintate extends State<ResetMpin> {
                         borderRadius: BorderRadius.circular(10.0),
                         keyboardType: TextInputType.number,
                         autoHideKeyboard: true,
-                        fieldBackgroundColor: AppColors.backgroundClr,
+                        fieldBackgroundColor: AppColors.background1,
                         borderColor: Colors.grey,
                         textStyle: TextStyle(
                           color: AppColors.textcolorwhite,
@@ -112,7 +115,7 @@ class _ResetMpintate extends State<ResetMpin> {
                         borderRadius: BorderRadius.circular(10.0),
                         keyboardType: TextInputType.number,
                         autoHideKeyboard: true,
-                        fieldBackgroundColor: AppColors.backgroundClr,
+                        fieldBackgroundColor: AppColors.background1,
                         borderColor: Colors.grey,
                         textStyle: TextStyle(
                           color: AppColors.textcolorwhite,

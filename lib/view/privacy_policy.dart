@@ -37,26 +37,26 @@ class _PrivacyPolicyViewState extends State<PrivacyPolicyView> {
         //color: Color.fromARGB(255, 209, 84, 72),
         child: ContainedTabBarView(
           tabBarProperties: TabBarProperties(
-              indicatorColor: AppColors.textcolorblack, indicatorWeight: 3.0),
+              indicatorColor: AppColors.textcolorwhite, indicatorWeight: 3.0),
           tabs: [
             Text(
               "Privacy Policy",
               style: TextStyle(
-                color: AppColors.textcolorblack,
+                color: AppColors.textcolorwhite,
                   fontSize:
                       /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */14),
             ),
             Text(
               "Terms & Conditions",
               style: TextStyle(
-                color: AppColors.textcolorblack,
+                color: AppColors.textcolorwhite,
                 fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */14),
               textAlign: TextAlign.center,
             ),
             Text(
               "Copy Right Policy",
               style: TextStyle(
-                color: AppColors.textcolorblack,
+                color: AppColors.textcolorwhite,
                 fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */14),
             )
           ],

@@ -10,6 +10,7 @@ import 'package:inspection_app_flutter/viewmodel/inspector_survey_report_view_mo
 import 'package:inspection_app_flutter/viewmodel/login_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/mpin_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/side_menu_viewmodel.dart';
+import 'package:inspection_app_flutter/viewmodel/splash_two_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/splash_view_model.dart';
 import 'package:inspection_app_flutter/viewmodel/survey_report_view_model.dart';
 import 'firebase_options.dart';
@@ -66,6 +67,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => InspectorSurveyReportViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => SplashTwoViewModel(),
         ),
       ],
       child: MaterialApp(

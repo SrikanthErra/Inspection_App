@@ -105,7 +105,7 @@ class _BaseScaffoldState extends State<BaseScaffold> {
                       ))
                 ],
                 centerTitle: true,
-                backgroundColor: AppColors.backgroundClr,
+                backgroundColor: AppColors.background1,
                 title: Text(
                   widget.titleName ?? '',
                   style: TextStyle(
@@ -115,38 +115,32 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               ),
             )
           : PreferredSize(
-              preferredSize: Size.fromHeight(widget.appBarSize ?? 40),
-              child: widget.appBar ?? Container(color: AppColors.backgroundClr),
+              preferredSize: Size.fromHeight(widget.appBarSize ?? 0),
+              child: widget.appBar ?? Container(color: AppColors.background1),
             ),
       body: widget.backgroundImageVisible == true
           ? Container(
               height: double.infinity,
               width: double.infinity,
-              /* decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [AppColors.background1, AppColors.background2],
-              )), */
-              color: AppColors.backgroundClr,
               decoration: BoxDecoration(
-                  /* image: DecorationImage(
-                  image: AssetImage(AssetPath.bg_image),
-                  fit: BoxFit.cover,
-                ), */
-                  ),
+                  gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [AppColors.background1, AppColors.background2],
+              )),
+              //color: AppColors.backgroundClr,
               child: widget.child,
             )
           : Container(
               height: double.infinity,
               width: double.infinity,
-              color: AppColors.backgroundClr,
-              /* decoration: BoxDecoration(
+              //color: AppColors.backgroundClr,
+              decoration: BoxDecoration(
                   gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
                 colors: [AppColors.background1, AppColors.background2],
-              )), */
+              )),
               child: widget.child,
             ),
     );

@@ -17,8 +17,7 @@ class DashboardGridView extends StatelessWidget {
 
   DashboardGridView({super.key});
 
-  List<ModulesModel> items = [
-  ];
+  List<ModulesModel> items = [];
   @override
   Widget build(BuildContext context) {
     print("appconstants ${AppConstants.memberType}");
@@ -47,7 +46,8 @@ class DashboardGridView extends StatelessWidget {
                 //color:AppColors.white,
                 child: GestureDetector(
                   onTap: () {
-                    getDetails(context, items[index].moduleName ?? '', items[index].routeName ?? '');
+                    getDetails(context, items[index].moduleName ?? '',
+                        items[index].routeName ?? '');
                   },
                   child: Card(
                     shape: RoundedRectangleBorder(
@@ -71,7 +71,7 @@ class DashboardGridView extends StatelessWidget {
                           //color: AppColors.backgroundClr,
                         ),
                         AppInputText(
-                          colors: AppColors.backgroundClr,
+                          colors: AppColors.background1,
                           size: 16,
                           text: items[index].moduleName ?? '',
                           weight: FontWeight.normal,
@@ -92,38 +92,37 @@ class DashboardGridView extends StatelessWidget {
     );
   }
 
-  void getDetails(BuildContext context, String itemName, String routeName) async {
+  void getDetails(
+      BuildContext context, String itemName, String routeName) async {
     final addQuestionsViewModel =
         Provider.of<AddQuestionViewModel>(context, listen: false);
     final takeSurveyViewModel =
         Provider.of<FoodSurveyViewModel>(context, listen: false);
     final surveyReportViewModel =
         Provider.of<SurveyReportViewModel>(context, listen: false);
-        final inspectorSurveyReportViewModel =
+    final inspectorSurveyReportViewModel =
         Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
     switch (itemName) {
       case "Take Survey":
-        //await takeSurveyViewModel.getQuestions(context);
-        Navigator.pushNamed(context, routeName);
+        await takeSurveyViewModel.getQuestions(context);
+        //await Navigator.pushNamed(context, routeName);
         break;
       case "Add Questions":
         //await addQuestionsViewModel.getRatingOptions(context);
         await Navigator.pushNamed(context, routeName);
         break;
       case "Add Inspector":
-        Navigator.pushNamed(context, routeName);
+        await Navigator.pushNamed(context, routeName);
         break;
       case "Survey Report":
-      if (AppConstants.memberType == "Admin")
-      {
-        //await surveyReportViewModel.getSurveyReport(context);
-        await Navigator.pushNamed(context, routeName);
-      }
-      else if (AppConstants.memberType == "Inspector") {
-        //await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
-        Navigator.pushNamed(context, routeName);
-      }
-        
+        if (AppConstants.memberType == "Admin") {
+          //await surveyReportViewModel.getSurveyReport(context);
+          await Navigator.pushNamed(context, routeName);
+        } else if (AppConstants.memberType == "Inspector") {
+          //await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
+          await Navigator.pushNamed(context, routeName);
+        }
+
         break;
       default:
         print('Please dont ask me');

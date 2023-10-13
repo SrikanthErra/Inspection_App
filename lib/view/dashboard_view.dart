@@ -60,7 +60,7 @@ class DashboardView extends StatelessWidget {
           title: Text('Inspection',
               style: TextStyle(color: AppColors.textcolorwhite)),
           centerTitle: true,
-          backgroundColor: AppColors.backgroundClr,
+          backgroundColor: AppColors.background1,
           leading: Builder(
             builder: (BuildContext innerContext) {
               return IconButton(
@@ -76,46 +76,53 @@ class DashboardView extends StatelessWidget {
         body: Container(
             height: double.infinity,
             width: double.infinity,
-            child:/*  AppConstants.memberType == "Admin"
-                ?  */Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          flex: 2,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                height: 10,
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [AppColors.background1, AppColors.background2],
+            )),
+            child: /*  AppConstants.memberType == "Admin"
+                ?  */
+                Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Image.network(
+                          AppConstants.appLogo ?? '',
+                          height: 100,
+                          width: 100,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              height: 100,
+                              width: 100,
+                              child: SvgPicture.asset(
+                                AssetPath.no_uploaded,
                               ),
-                              Image.network(
-                                AppConstants.appLogo ?? '',
-                                height: 100,
-                                width: 100,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
-                                    height: 100,
-                                    width: 100,
-                                    child: SvgPicture.asset(
-                                      AssetPath.no_uploaded,
-                                    ),
-                                  );
-                                },
-                              ),
-                              SizedBox(
-                                height: 4,
-                              ),
-                              AppInputText(
-                                  text: AppConstants.userName ?? '',
-                                  colors: AppColors.textcolorwhite,
-                                  size: 16,
-                                  weight: FontWeight.bold)
-                            ],
-                          )),
-                      Expanded(flex: 3, child: DashboardGridView())
-                    ],
-                  )
-                /* : Column(
+                            );
+                          },
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        AppInputText(
+                            text: AppConstants.userName ?? '',
+                            colors: AppColors.textcolorwhite,
+                            size: 16,
+                            weight: FontWeight.bold)
+                      ],
+                    )),
+                Expanded(flex: 3, child: DashboardGridView())
+              ],
+            )
+            /* : Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
@@ -184,7 +191,7 @@ class DashboardView extends StatelessWidget {
                       ),
                     ],
                   ) */
-                  ),
+            ),
         bottomNavigationBar: Container(
           color: AppColors.textcolorblack,
           //color: Color.fromARGB(255, 154, 32, 56),
