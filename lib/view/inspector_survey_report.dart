@@ -74,10 +74,10 @@ class InspectorSurveyReportState extends State<InspectorSurveyReport> {
     // TODO: implement initState
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final inspectorSurveyReportViewModel =
+      /* final inspectorSurveyReportViewModel =
           Provider.of<InspectorSurveyReportViewModel>(context, listen: false);
       await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
-      setState(() {});
+      setState(() {}); */
     });
   }
 
@@ -88,47 +88,51 @@ class InspectorSurveyReportState extends State<InspectorSurveyReport> {
 
     print(
         "inspectorSurveyReportViewModel.dataMap ${inspectorSurveyReportViewModel.dataMap}");
-    final chart = PieChart(
-      key: ValueKey(key),
-      dataMap: inspectorSurveyReportViewModel.dataMap,
-      animationDuration: const Duration(milliseconds: 800),
-      chartLegendSpacing: _chartLegendSpacing!,
-      chartRadius: math.min(MediaQuery.of(context).size.width / 1, 300),
-      colorList: colorList,
-      initialAngleInDegree: 0,
-      chartType: _chartType!,
-      centerText: _showCenterText ? "Report" : null,
-      //legendLabels: _showLegendLabel ? legendLabels : {},
-      legendOptions: LegendOptions(
-        showLegendsInRow: _showLegendsInRow,
-        legendPosition: _legendPosition!,
-        showLegends: _showLegends,
-        legendShape: _legendShape == LegendShape.circle
-            ? BoxShape.circle
-            : BoxShape.rectangle,
-        legendTextStyle: const TextStyle(
-            fontWeight: FontWeight.normal, fontSize: 30, color: Colors.black),
-      ),
-      chartValuesOptions: ChartValuesOptions(
-        showChartValueBackground: _showChartValueBackground,
-        showChartValues: _showChartValues,
-        chartValueStyle: TextStyle(
-          fontSize: 20,
-          color: Colors.black,
-        ),
-        showChartValuesInPercentage: _showChartValuesInPercentage,
-        showChartValuesOutside: _showChartValuesOutside,
-      ),
-      //totalValue: 100,
-      ringStrokeWidth: _ringStrokeWidth!,
-      emptyColor: Colors.grey,
-      gradientList: _showGradientColors ? gradientList : null,
-      emptyColorGradient: const [
-        Color(0xff6c5ce7),
-        Colors.blue,
-      ],
-      baseChartColor: Colors.transparent,
-    );
+    final chart = inspectorSurveyReportViewModel.dataMap.isNotEmpty
+        ? PieChart(
+            key: ValueKey(key),
+            dataMap: inspectorSurveyReportViewModel.dataMap,
+            animationDuration: const Duration(milliseconds: 800),
+            chartLegendSpacing: _chartLegendSpacing!,
+            chartRadius: math.min(MediaQuery.of(context).size.width / 1, 300),
+            colorList: colorList,
+            initialAngleInDegree: 0,
+            chartType: _chartType!,
+            centerText: _showCenterText ? "Report" : null,
+            //legendLabels: _showLegendLabel ? legendLabels : {},
+            legendOptions: LegendOptions(
+              showLegendsInRow: _showLegendsInRow,
+              legendPosition: _legendPosition!,
+              showLegends: _showLegends,
+              legendShape: _legendShape == LegendShape.circle
+                  ? BoxShape.circle
+                  : BoxShape.rectangle,
+              legendTextStyle: const TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 30,
+                  color: Colors.black),
+            ),
+            chartValuesOptions: ChartValuesOptions(
+              showChartValueBackground: _showChartValueBackground,
+              showChartValues: _showChartValues,
+              chartValueStyle: TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+              ),
+              showChartValuesInPercentage: _showChartValuesInPercentage,
+              showChartValuesOutside: _showChartValuesOutside,
+            ),
+            //totalValue: 100,
+            ringStrokeWidth: _ringStrokeWidth!,
+            emptyColor: Colors.grey,
+            gradientList: _showGradientColors ? gradientList : null,
+            emptyColorGradient: const [
+              Color(0xff6c5ce7),
+              Colors.blue,
+            ],
+            baseChartColor: Colors.transparent,
+          )
+        : SizedBox();
     return Stack(
       children: [
         BaseScaffold(

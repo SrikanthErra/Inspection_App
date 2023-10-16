@@ -55,11 +55,11 @@ class _AddSubUserState extends State<AddSubUser> {
               "Add Inspection Member",
             )),
           ),
-          child: Column(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SingleChildScrollView(
-                child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.45,
                     width: MediaQuery.of(context).size.width * 0.85,
@@ -204,8 +204,8 @@ class _AddSubUserState extends State<AddSubUser> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         if (addInspectorModel.isLoading) LoaderComponent()

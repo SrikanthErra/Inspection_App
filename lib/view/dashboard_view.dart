@@ -93,7 +93,7 @@ class DashboardView extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 10,
+                          height: 40,
                         ),
                         Image.network(
                           AppConstants.appLogo ?? '',

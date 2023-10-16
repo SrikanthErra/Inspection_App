@@ -119,8 +119,8 @@ class DashboardGridView extends StatelessWidget {
           //await surveyReportViewModel.getSurveyReport(context);
           await Navigator.pushNamed(context, routeName);
         } else if (AppConstants.memberType == "Inspector") {
-          //await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
-          await Navigator.pushNamed(context, routeName);
+          await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
+          //await Navigator.pushNamed(context, routeName);
         }
 
         break;

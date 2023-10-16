@@ -83,26 +83,22 @@ class InspectorSurveyReportViewModel extends ChangeNotifier {
                 percent_100++;
                 print("percent_100 is $percent_100");
               }
-
-              if (percent_25 == 0.0 &&
-                  percent_75 == 0.0 &&
-                  percent_50 == 0.0 &&
-                  percent_100 == 0.0) {
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return CustomDialogBox(
-                        wrongFlag: true,
-                        bgColor: Colors.red,
-                        title: 'NO DATA FOUND',
-                        descriptions: "User Survey Report is not available",
-                        Buttontext: 'OK',
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
-                        },
-                      );
-                    });
-              }
+            } else {
+              /* showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CustomDialogBox(
+                      wrongFlag: true,
+                      bgColor: Colors.red,
+                      title: 'NO DATA FOUND',
+                      descriptions: "User Survey Report is not available",
+                      Buttontext: 'OK',
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.DashboardView);
+                      },
+                    );
+                  }); */
             }
           }
         });
@@ -110,7 +106,49 @@ class InspectorSurveyReportViewModel extends ChangeNotifier {
         dataMap["Average"] = percent_50;
         dataMap["Good"] = percent_75;
         dataMap["Excellent"] = percent_100;
-      } else {}
+
+        if (dataMap["Poor"] == 0.0 &&
+            dataMap["Average"] == 0.0 &&
+            dataMap["Good"] == 0.0 &&
+            dataMap["Excellent"] == 0.0) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomDialogBox(
+                  wrongFlag: true,
+                  bgColor: Colors.red,
+                  title: 'NO DATA FOUND',
+                  descriptions: "User Survey Report is not available",
+                  Buttontext: 'OK',
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, AppRoutes.DashboardView);
+                  },
+                );
+              });
+        } else {
+          await Navigator.pushNamed(
+            context,
+            AppRoutes.InspectorSurveyReport,
+          );
+        }
+      } else {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return CustomDialogBox(
+                wrongFlag: true,
+                bgColor: Colors.red,
+                title: 'NO DATA FOUND',
+                descriptions: "User Survey Report is not available",
+                Buttontext: 'OK',
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, AppRoutes.DashboardView);
+                },
+              );
+            });
+      }
     } else {
       setIsLoadingStatus(false);
       showDialog(

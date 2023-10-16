@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
+import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/utils/internet_check.dart';
 import 'package:inspection_app_flutter/utils/loader.dart';
 
@@ -25,7 +26,7 @@ class SurveyReportViewModel extends ChangeNotifier {
     "Excellent": 2,
   }; */
 
-  getSurveyReport(context) async {
+  getSurveyReport(BuildContext context) async {
     setIsLoadingStatus(true);
     dataMap.clear();
     bool isConnected = await InternetCheck().hasInternetConnection();
@@ -94,6 +95,32 @@ class SurveyReportViewModel extends ChangeNotifier {
         dataMap["Good"] = percent_75;
         dataMap["Excellent"] = percent_100;
         setIsLoadingStatus(false);
+
+        if (dataMap["Poor"] == 0.0 &&
+            dataMap["Average"] == 0.0 &&
+            dataMap["Good"] == 0.0 &&
+            dataMap["Excellent"] == 0.0) {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomDialogBox(
+                  wrongFlag: true,
+                  bgColor: Colors.red,
+                  title: 'NO DATA FOUND',
+                  descriptions: "User Survey Report is not available",
+                  Buttontext: 'OK',
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, AppRoutes.DashboardView);
+                  },
+                );
+              });
+        } /* else {
+          await Navigator.pushNamed(
+            context,
+            AppRoutes.SurveyReport,
+          );
+        } */
       } catch (e) {
         print("error is $e");
       }

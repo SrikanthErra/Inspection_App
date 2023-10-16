@@ -49,8 +49,9 @@ class SideMenuViewModel with ChangeNotifier {
       );
     } else if (subtitle == 'Survey Report' &&
         AppConstants.memberType == 'Admin') {
-      //await surveyReportViewModel.getSurveyReport(context);
       Navigator.pop(context);
+      //await surveyReportViewModel.getSurveyReport(context);
+
       await Navigator.pushNamed(
         context,
         AppRoutes.SurveyReport,
@@ -58,12 +59,8 @@ class SideMenuViewModel with ChangeNotifier {
     } else if (subtitle == 'Survey Report' &&
         AppConstants.memberType == 'Inspector') {
       print("enter in inspector survey report");
-      //await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
       Navigator.pop(context);
-      await Navigator.pushNamed(
-        context,
-        AppRoutes.InspectorSurveyReport,
-      );
+      await inspectorSurveyReportViewModel.getMemberSurveyReport(context);
     } else if (subtitle == 'App Info') {
       Navigator.pop(context);
       await Navigator.pushNamed(context, AppRoutes.AppInfoScreen);
