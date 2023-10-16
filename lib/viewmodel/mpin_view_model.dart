@@ -185,8 +185,9 @@ class MpinViewModel extends ChangeNotifier {
       AppConstants.inspectorFlag = true;
     }
     if (Mpin == mpin) {
-      await Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
       setIsLoadingStatus(false);
+      await Navigator.pushReplacementNamed(context, AppRoutes.DashboardView);
+
       return true;
     } else {
       setIsLoadingStatus(false);
