@@ -46,7 +46,7 @@ class DashboardView extends StatelessWidget {
                   exit(0);
                 }
               },
-              //version: "verson1111" ?? ''
+              version: AppConstants.version_number ?? ''
             );
           },
         );
@@ -77,11 +77,14 @@ class DashboardView extends StatelessWidget {
             height: double.infinity,
             width: double.infinity,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
+              image: DecorationImage(
+                  image: AssetImage(AssetPath.background), fit: BoxFit.cover),
+              /* gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [AppColors.background1, AppColors.background2],
-            )),
+            ) */
+            ),
             child: /*  AppConstants.memberType == "Admin"
                 ?  */
                 Column(
@@ -95,7 +98,22 @@ class DashboardView extends StatelessWidget {
                         SizedBox(
                           height: 40,
                         ),
-                        Image.network(
+                        SizedBox(
+                          height: 100,
+                          width: 100,
+                          child: CircleAvatar(
+                            //backgroundColor:  Colors.white,
+                            radius: 35,
+                            child: ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(45)),
+                                child: Image.asset(
+                                  AssetPath.app_logo,
+                                  fit: BoxFit.cover,
+                                )),
+                          ),
+                        ),
+                        /* Image.network(
                           AppConstants.appLogo ?? '',
                           height: 100,
                           width: 100,
@@ -108,7 +126,7 @@ class DashboardView extends StatelessWidget {
                               ),
                             );
                           },
-                        ),
+                        ), */
                         SizedBox(
                           height: 4,
                         ),

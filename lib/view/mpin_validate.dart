@@ -5,6 +5,7 @@ import 'package:inspection_app_flutter/res/app_alerts/customAlerts.dart';
 import 'package:inspection_app_flutter/res/components/reusable%20widgets/app_input_text.dart';
 import 'package:inspection_app_flutter/res/components/reusable%20widgets/button_component.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
+import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/utils/loader.dart';
 import 'package:inspection_app_flutter/viewmodel/mpin_view_model.dart';
@@ -36,20 +37,33 @@ class _mpinValidateState extends State<mpinValidate> {
   @override
   Widget build(BuildContext context) {
     final mpinViewModel = Provider.of<MpinViewModel>(context, listen: false);
-    print("getIsLoadingStatus in take survey screen is ${mpinViewModel.getIsLoadingStatus}");
+    print(
+        "getIsLoadingStatus in take survey screen is ${mpinViewModel.getIsLoadingStatus}");
     //final arg = ModalRoute.of(context)?.settings.arguments as ScreenArguments;
 
     return Stack(
       children: [
         Scaffold(
           // resizeToAvoidBottomInset: true,
+          bottomSheet: Container(
+            color: AppColors.textcolorblack,
+            child: Image.asset(
+              AssetPath.footer_png,
+              width: double.infinity,
+              height: 40,
+              //color: Colors.black,
+            ),
+          ),
           body: Container(
             decoration: BoxDecoration(
-                gradient: LinearGradient(
+              image: DecorationImage(
+                  image: AssetImage(AssetPath.background), fit: BoxFit.cover),
+              /* gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [AppColors.background1, AppColors.background2],
-            )),
+            ) */
+            ),
             child: Center(
               child: SingleChildScrollView(
                 child: Container(
@@ -167,7 +181,7 @@ class _mpinValidateState extends State<mpinValidate> {
                             onPressed: () async {
                               if (_mpin.text.isNotEmpty &&
                                   _mpin.text.length == 4) {
-                               bool flag = await mpinViewModel
+                                bool flag = await mpinViewModel
                                     .mpinValidateLoginCall(_mpin.text, context);
                                 if (flag) {
                                   print("falg is $flag");

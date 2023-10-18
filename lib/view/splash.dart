@@ -28,14 +28,14 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Stack(
       children: <Widget>[
         Container(
-          /* height: double.infinity,
+          height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: clr,
-            /* image: DecorationImage(
-                image: AssetImage(AssetPath.splash), fit: BoxFit.cover), */
+            //color: clr,
+            image: DecorationImage(
+                image: AssetImage(AssetPath.splash), fit: BoxFit.cover),
           ),
-          child: Image.network(
+          /* child: Image.network(
             AppConstants.appLogo ?? '',
             errorBuilder: (context, error, stackTrace) {
               return Container(

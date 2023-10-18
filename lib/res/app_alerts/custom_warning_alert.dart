@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
+import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 
 class CustomWarningAlert extends StatefulWidget {
   final String descriptions;
@@ -56,11 +57,6 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Text(
-                'Version: ${widget.version}',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 14),
-              ),
               SizedBox(
                 height: 10,
               ),
@@ -68,6 +64,14 @@ class _CustomWarningAlertState extends State<CustomWarningAlert> {
                 "Inspection App",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Version: ${AppConstants.version_number}',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14),
               ),
               SizedBox(
                 height: 10,

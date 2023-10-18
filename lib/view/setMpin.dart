@@ -35,7 +35,7 @@ class _setMpinPageState extends State<setMpinPage> {
     return Stack(
       children: [
         BaseScaffold(
-          //resizeToAvoidBottomInset: true,
+          bottomSheetVis: true,
           child: Center(
             child: SingleChildScrollView(
               child: Container(

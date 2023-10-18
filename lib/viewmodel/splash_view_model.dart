@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/data/local_store_helper.dart';
 import 'package:inspection_app_flutter/model/color_constants_model.dart';
 import 'package:inspection_app_flutter/model/moduels_model.dart';
-import 'package:inspection_app_flutter/model/user_insert_model.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
@@ -29,9 +29,11 @@ class SplashViewModel extends ChangeNotifier {
                 mobileNumber: "9999999999",
                 mpin: "1111")
             .toJson()); */
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    AppConstants.version_number = packageInfo.version;
 
     final List<Map<String, dynamic>> hell = [];
-    
+
     final databaseReference = await FirebaseDatabase.instance.ref();
     Query query = databaseReference.child("AppConstants");
     DatabaseEvent event = await query.once();
@@ -173,8 +175,8 @@ class SplashViewModel extends ChangeNotifier {
   } */
 
   navigationflow(context) async {
-    Navigator.pushReplacementNamed(context, AppRoutes.SplashTwoScreen);
-    /* String? MPIN = await LocalStoreHelper().readTheData("mpin") ?? '';
+    //Navigator.pushReplacementNamed(context, AppRoutes.SplashTwoScreen);
+    String? MPIN = await LocalStoreHelper().readTheData("mpin") ?? '';
     print("mpin is $MPIN");
     String? mobileNumber =
         await LocalStoreHelper().readTheData("mobileNumber") ?? '';
@@ -200,7 +202,7 @@ class SplashViewModel extends ChangeNotifier {
         Navigator.pushNamed(context, AppRoutes.LoginPage);
       });
       //Navigator.pushNamed(context, AppRoutes.LoginPage);
-    } */
+    }
   }
 
   getModules() async {
@@ -221,24 +223,31 @@ class SplashViewModel extends ChangeNotifier {
           adminList.forEach((element) {
             if (element.trim() == "Add Questions") {
               AppConstants.AdminModules?.add(ModulesModel(
-                  moduleName: "Add Questions", routeName: AppRoutes.AddQuestions, imagePath: AssetPath.add_questions_svg));
+                  moduleName: "Add Questions",
+                  routeName: AppRoutes.AddQuestions,
+                  imagePath: AssetPath.add_questions_svg));
               //hell.add({element: "AddQuestions"});
             } else if (element.trim() == "Add Inspector") {
               //hell.add({element: "AddSubUser"});
               AppConstants.AdminModules?.add(ModulesModel(
-                  moduleName: "Add Inspector", routeName: AppRoutes.AddSubUser, imagePath: AssetPath.add_inspector_svg));
+                  moduleName: "Add Inspector",
+                  routeName: AppRoutes.AddSubUser,
+                  imagePath: AssetPath.add_inspector_svg));
             } else if (element.trim() == "Survey Report") {
               AppConstants.AdminModules?.add(ModulesModel(
-                  moduleName: "Survey Report", routeName: AppRoutes.SurveyReport, imagePath: AssetPath.survey_report_svg));
+                  moduleName: "Survey Report",
+                  routeName: AppRoutes.SurveyReport,
+                  imagePath: AssetPath.survey_report_svg));
               //hell.add({element: "SurveyReport"});
             } else if (element.trim() == "Take Survey") {
               //hell.add({element: "FoodSurvey"});
               AppConstants.AdminModules?.add(ModulesModel(
-                  moduleName: "Take Survey", routeName: AppRoutes.FoodSurvey, imagePath: AssetPath.take_survey_svg));
+                  moduleName: "Take Survey",
+                  routeName: AppRoutes.FoodSurvey,
+                  imagePath: AssetPath.take_survey_svg));
             }
           });
-        }
-        else if (element.key == "Inspector" &&
+        } else if (element.key == "Inspector" &&
             element.value != null &&
             element.value != "") {
           String inspectorString = element.value.toString();
@@ -248,13 +257,16 @@ class SplashViewModel extends ChangeNotifier {
             print("element: $element");
             if (element.trim() == "Take Survey") {
               AppConstants.InspectorModules?.add(ModulesModel(
-                  moduleName: "Take Survey", routeName: AppRoutes.FoodSurvey, imagePath: AssetPath.take_survey_svg));
+                  moduleName: "Take Survey",
+                  routeName: AppRoutes.FoodSurvey,
+                  imagePath: AssetPath.take_survey_svg));
               //hell.add({element: "FoodSurvey"});
-            }
-            else if (element.trim() == "Survey Report") {
+            } else if (element.trim() == "Survey Report") {
               print("entered in survey report");
               AppConstants.InspectorModules?.add(ModulesModel(
-                  moduleName: "Survey Report", routeName: AppRoutes.InspectorSurveyReport, imagePath: AssetPath.survey_report_svg));
+                  moduleName: "Survey Report",
+                  routeName: AppRoutes.InspectorSurveyReport,
+                  imagePath: AssetPath.survey_report_svg));
               //hell.add({element: "SurveyReport"});
             }
           });
@@ -263,7 +275,8 @@ class SplashViewModel extends ChangeNotifier {
       });
 
       print("AdminModules list: ${AppConstants.AdminModules?[0].moduleName}");
-      print("InspectorModules list: ${AppConstants.InspectorModules?[1].moduleName}");
+      print(
+          "InspectorModules list: ${AppConstants.InspectorModules?[1].moduleName}");
 
       // Convert to model class
       /* List<ModulesModel> modulesList =

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:inspection_app_flutter/res/components/base_scaffold.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
+import 'package:inspection_app_flutter/res/constants/app_constants.dart';
 import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:sizer/sizer.dart';
-
 
 class AppInfoScreen extends StatefulWidget {
   const AppInfoScreen({super.key});
@@ -35,15 +35,19 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
         child: Stack(alignment: AlignmentDirectional.center, children: [
           Column(
             children: [
-              /* Padding(
+              Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: CircleAvatar(
-                  radius: 40,
+                  //backgroundColor:  Colors.white,
+                  radius: 35,
                   child: ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(40)),
-                      child: Image.asset(AssetPath.tsfire_logo)),
+                      borderRadius: BorderRadius.all(Radius.circular(45)),
+                      child: Image.asset(
+                        AssetPath.app_logo,
+                        fit: BoxFit.cover,
+                      )),
                 ),
-              ), */
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -61,9 +65,9 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
                               "Version :",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textcolorblack,
-                                  fontSize:/*  SizerUtil.deviceType == DeviceType.tablet ? 10.sp : */ 14
-                                  ),
+                                  color: AppColors.textcolorwhite,
+                                  fontSize: /*  SizerUtil.deviceType == DeviceType.tablet ? 10.sp : */
+                                      14),
                             ),
                           ),
                           SizedBox(
@@ -71,11 +75,12 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
                           ),
                           Expanded(
                             child: Text(
-                              /* AppConstants.version_number ?? */ "",
+                              AppConstants.version_number ?? "",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textcolorblack,
-                                  fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */14),
+                                  color: AppColors.textcolorwhite,
+                                  fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */
+                                      14),
                             ),
                           ),
                         ],
@@ -91,8 +96,9 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
                               "Last updated date :",
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textcolorblack,
-                                  fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */14),
+                                  color: AppColors.textcolorwhite,
+                                  fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */
+                                      14),
                             ),
                           ),
                           SizedBox(
@@ -103,8 +109,9 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
                               lastViersionDate,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: AppColors.textcolorblack,
-                                  fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */14),
+                                  color: AppColors.textcolorwhite,
+                                  fontSize: /* SizerUtil.deviceType == DeviceType.tablet ? 10.sp :  */
+                                      14),
                             ),
                           ),
                         ],
@@ -123,8 +130,6 @@ class _AppInfoScreenState extends State<AppInfoScreen> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-    
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) async {});
   }
 }

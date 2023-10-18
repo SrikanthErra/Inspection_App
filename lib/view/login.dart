@@ -7,6 +7,7 @@ import 'package:inspection_app_flutter/res/components/reusable%20widgets/app_inp
 import 'package:inspection_app_flutter/res/components/reusable%20widgets/button_component.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
 import 'package:inspection_app_flutter/res/constants/app_constants.dart';
+import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/utils/loader.dart';
 import 'package:inspection_app_flutter/viewmodel/login_view_model.dart';
@@ -46,11 +47,16 @@ class _LoginPageState extends State<LoginPage> {
                         height: 100,
                         width: 100,
                         child: CircleAvatar(
-                            radius: 60,
-                            backgroundImage: NetworkImage(
-                              AppConstants.appLogo ?? '',
-                              
-                            )),
+                          //backgroundColor:  Colors.white,
+                          radius: 35,
+                          child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(45)),
+                              child: Image.asset(
+                                AssetPath.app_logo,
+                                fit: BoxFit.cover,
+                              )),
+                        ),
                       ),
                     ),
                     Container(
@@ -82,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                                   colors: AppColors.textcolorblack,
                                   size: 16,
                                   weight: FontWeight.w300),
-                          
+
                               /* Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: AppInputText(
@@ -92,7 +98,8 @@ class _LoginPageState extends State<LoginPage> {
                                     weight: FontWeight.bold),
                               ), */
                               AppInputTextfield(
-                                textfieldwidth: MediaQuery.of(context).size.width * 0.7,
+                                textfieldwidth:
+                                    MediaQuery.of(context).size.width * 0.7,
                                 length: 10,
                                 inputFormatters: [
                                   new FilteringTextInputFormatter.allow(
@@ -116,8 +123,8 @@ class _LoginPageState extends State<LoginPage> {
                                   onPressed: () async {
                                     if (await loginViewModel.validateInputs(
                                         _mobile.text, context)) {
-                                      int count = await loginViewModel.loginCount(
-                                          _mobile.text, context);
+                                      int count = await loginViewModel
+                                          .loginCount(_mobile.text, context);
                                       print("count is $count");
                                     }
                                     ;
@@ -153,6 +160,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            bottomSheetVis: true,
+            /* bottomsheet: Container(
+              color: Colors.black,
+              //color: Color.fromARGB(255, 154, 32, 56),
+              height: MediaQuery.of(context).size.height * 0.06,
+              child: Image.asset(
+                AssetPath.footer_png,
+                width: double.infinity,
+              ),
+            ), */
           ),
         ),
         if (loginViewModel.getIsLoadingStatus) LoaderComponent()

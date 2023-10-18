@@ -26,4 +26,7 @@ class AssetPath {
   static const String take_survey_svg = "assets/takeSurvey.svg";
   static const String no_uploaded = "assets/no_uploaded.svg";
   static const String loader = "assets/loader.json";
+  static const String splash = "assets/splshscreen.jpg";
+  static const String app_logo = "assets/inspection_logo.png";
+  static const String background = "assets/background.jpg";
 }

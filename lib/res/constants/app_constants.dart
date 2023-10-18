@@ -12,6 +12,7 @@ class AppConstants {
   static String? userName;
   static String? memberkey;
   static String? mobileNumber;
+  static String? version_number;
   static List<ModulesModel>? AdminModules;
   static List<ModulesModel>? InspectorModules;
 

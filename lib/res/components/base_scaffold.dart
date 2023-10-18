@@ -73,11 +73,15 @@ class _BaseScaffoldState extends State<BaseScaffold> {
       //endDrawer: widget.endDrawer,
       resizeToAvoidBottomInset: widget.resize,
       bottomSheet: widget.bottomSheetVis == true
-          ? Image.asset(
-              AssetPath.footer_png,
-              width: double.infinity,
-              height: 40,
-            )
+          ? Container(
+            color: AppColors.textcolorblack,
+            child: Image.asset(
+                AssetPath.footer_png,
+                width: double.infinity,
+                height: 40,
+                //color: Colors.black,
+              ),
+          )
           : widget.bottomsheet,
       appBar: widget.AppBarvis == true
           ? PreferredSize(
@@ -123,11 +127,14 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                image: DecorationImage(
+                    image: AssetImage(AssetPath.background), fit: BoxFit.cover),
+                /* gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [AppColors.background1, AppColors.background2],
-              )),
+              ) */
+              ),
               //color: AppColors.backgroundClr,
               child: widget.child,
             )
@@ -136,11 +143,14 @@ class _BaseScaffoldState extends State<BaseScaffold> {
               width: double.infinity,
               //color: AppColors.backgroundClr,
               decoration: BoxDecoration(
-                  gradient: LinearGradient(
+                image: DecorationImage(
+                    image: AssetImage(AssetPath.background), fit: BoxFit.cover),
+                /* gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [AppColors.background1, AppColors.background2],
-              )),
+              ) */
+              ),
               child: widget.child,
             ),
     );

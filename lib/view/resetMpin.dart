@@ -31,7 +31,7 @@ class _ResetMpintate extends State<ResetMpin> {
       children: [
         BaseScaffold(
           //resizeToAvoidBottomInset: true,
-
+          bottomSheetVis: true,
           child: Center(
             child: SingleChildScrollView(
               child: Container(

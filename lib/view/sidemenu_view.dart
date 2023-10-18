@@ -102,6 +102,40 @@ class _SideMenuViewState extends State<SideMenuView> {
           Expanded(
             flex: /*  SizerUtil.deviceType == DeviceType.tablet ? 3 :  */ 2,
             child: Container(
+              color: AppColors.background1,
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    /* width: 80.w,
+                        height: 22.h, */
+                    width: 100,
+                    height: 100,
+                    child: CircleAvatar(
+                      //backgroundColor:  Colors.white,
+                      radius: 55,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.all(Radius.circular(100)),
+                          child: Image.asset(
+                            AssetPath.app_logo,
+                            fit: BoxFit.cover,
+                          )),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  Text( AppConstants.userName ?? '',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15.0,
+                          color: AppColors.textcolorwhite)),
+                ],
+              ),
+            ),
+            /* Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -109,8 +143,23 @@ class _SideMenuViewState extends State<SideMenuView> {
                 colors: [AppColors.background1, AppColors.background2],
               )),
               width: double.infinity,
+              //height: 50,
               //height: 30.h,
-              child: Image.network(
+              child: SizedBox(
+                height: 100,
+                width: 100,
+                child: CircleAvatar(
+                  //backgroundColor:  Colors.white,
+                  radius: 55,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(100)),
+                      child: Image.asset(
+                        AssetPath.app_logo,
+                        fit: BoxFit.cover,
+                      )),
+                ),
+              ),
+              /* Image.network(
                 AppConstants.appLogo ?? '',
                 height: 20,
                 width: 20,
@@ -123,7 +172,7 @@ class _SideMenuViewState extends State<SideMenuView> {
                     ),
                   );
                 },
-              ),
+              ), */
               /* Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,7 +193,7 @@ class _SideMenuViewState extends State<SideMenuView> {
                           color: Colors.white)), */
                 ],
               ), */
-            ),
+            ), */
           ),
           Expanded(
             flex: /* SizerUtil.deviceType == DeviceType.tablet ? 7 :  */ 6,
