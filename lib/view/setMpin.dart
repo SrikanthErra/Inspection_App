@@ -5,6 +5,7 @@ import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 import 'package:inspection_app_flutter/res/components/reusable%20widgets/app_input_text.dart';
 import 'package:inspection_app_flutter/res/components/reusable%20widgets/button_component.dart';
 import 'package:inspection_app_flutter/res/constants/app_colors.dart';
+import 'package:inspection_app_flutter/res/constants/assetsPath.dart';
 import 'package:inspection_app_flutter/res/routes/app_routes.dart';
 import 'package:inspection_app_flutter/utils/loader.dart';
 import 'package:inspection_app_flutter/viewmodel/mpin_view_model.dart';
@@ -50,6 +51,24 @@ class _setMpinPageState extends State<setMpinPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: CircleAvatar(
+                          //backgroundColor:  Colors.white,
+                          radius: 35,
+                          child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100)),
+                              child: Image.asset(
+                                AssetPath.app_logo,
+                                fit: BoxFit.cover,
+                              )),
+                        ),
+                      ),
+                    ),
                       /* CircleAvatar(
                           radius: 60, backgroundImage: AssetImage(AssetPath.AppLogo)), */
                       Padding(
@@ -61,7 +80,7 @@ class _setMpinPageState extends State<setMpinPage> {
                             weight: FontWeight.bold),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(0.0),
                         child: AppInputText(
                             text: "Enter 4 digit MPIN",
                             colors: AppColors.textcolorblack,

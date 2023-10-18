@@ -41,27 +41,9 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: CircleAvatar(
-                          //backgroundColor:  Colors.white,
-                          radius: 35,
-                          child: ClipRRect(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(45)),
-                              child: Image.asset(
-                                AssetPath.app_logo,
-                                fit: BoxFit.cover,
-                              )),
-                        ),
-                      ),
-                    ),
                     Container(
                       //color: Color.fromARGB(255, 237, 71, 5),
-                      height: MediaQuery.of(context).size.height * 0.45,
+                      //height: MediaQuery.of(context).size.height * 0.45,
                       width: MediaQuery.of(context).size.width * 0.85,
                       child: SingleChildScrollView(
                         child: Card(
@@ -72,9 +54,28 @@ class _LoginPageState extends State<LoginPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                height: 20,
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: SizedBox(
+                                  height: 100,
+                                  width: 100,
+                                  child: CircleAvatar(
+                                    //backgroundColor:  Colors.white,
+                                    radius: 35,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(100)),
+                                        child: Image.asset(
+                                          AssetPath.app_logo,
+                                          fit: BoxFit.cover,
+                                        )),
+                                  ),
+                                ),
                               ),
+                              /* SizedBox(
+                                height: 20,
+                              ), */
                               AppInputText(
                                   text: "Hello",
                                   colors: AppColors.textcolorblack,

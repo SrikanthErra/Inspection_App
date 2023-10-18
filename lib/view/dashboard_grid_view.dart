@@ -32,7 +32,7 @@ class DashboardGridView extends StatelessWidget {
           crossAxisCount: 2, // Adjust the crossAxisCount as per your needs
           mainAxisSpacing: 5.0,
           crossAxisSpacing: 5.0,
-          childAspectRatio: (.7 / .4),
+          childAspectRatio: (.7 / .5),
         ),
         itemBuilder: (context, index) {
           return SizedBox(
@@ -40,6 +40,7 @@ class DashboardGridView extends StatelessWidget {
             height: 50, */
             child: GridTile(
               child: Container(
+                //height: 300,
                 /* decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ), */
@@ -50,6 +51,7 @@ class DashboardGridView extends StatelessWidget {
                         items[index].routeName ?? '');
                   },
                   child: Card(
+
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       //side: BorderSide(width: 5, color: Colors.green)
@@ -70,6 +72,7 @@ class DashboardGridView extends StatelessWidget {
                           width: 50.0,
                           //color: AppColors.backgroundClr,
                         ),
+                        SizedBox(height: 8,),
                         AppInputText(
                           colors: AppColors.background1,
                           size: 16,

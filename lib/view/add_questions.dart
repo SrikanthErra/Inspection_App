@@ -70,6 +70,7 @@ class _AddQuestionsState extends State<AddQuestions> {
     return Stack(
       children: [
         BaseScaffold(
+          bottomSheetVis: true,
           resize: false,
           AppBarvis: true,
           titleName: "Add Questions",

@@ -67,7 +67,7 @@ class _mpinValidateState extends State<mpinValidate> {
             child: Center(
               child: SingleChildScrollView(
                 child: Container(
-                  height: MediaQuery.of(context).size.height * 0.45,
+                  //height: MediaQuery.of(context).size.height * 0.45,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: Card(
                     color: Colors.white,
@@ -78,6 +78,24 @@ class _mpinValidateState extends State<mpinValidate> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5.0),
+                          child: SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: CircleAvatar(
+                              //backgroundColor:  Colors.white,
+                              radius: 35,
+                              child: ClipRRect(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(100)),
+                                  child: Image.asset(
+                                    AssetPath.app_logo,
+                                    fit: BoxFit.cover,
+                                  )),
+                            ),
+                          ),
+                        ),
                         /* CircleAvatar(
                             radius: 60, backgroundImage: AssetImage(AssetPath.AppLogo)), */
                         Padding(

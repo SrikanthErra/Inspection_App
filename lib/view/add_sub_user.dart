@@ -45,7 +45,7 @@ class _AddSubUserState extends State<AddSubUser> {
     return Stack(
       children: [
         BaseScaffold(
-          //bottomSheetVis: true,
+          bottomSheetVis: true,
           resize: true,
           AppBarvis: true,
           titleName: "Add Inspection Member",
@@ -62,7 +62,7 @@ class _AddSubUserState extends State<AddSubUser> {
                 Center(
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.45,
-                    width: MediaQuery.of(context).size.width * 0.85,
+                    width: MediaQuery.of(context).size.width * 0.95,
                     margin: EdgeInsets.only(top: 20),
                     child: Card(
                       color: Colors.white,
@@ -85,7 +85,7 @@ class _AddSubUserState extends State<AddSubUser> {
                             ),
                           ),
                           AppInputTextfield(
-                            textfieldwidth: MediaQuery.of(context).size.width * 0.7,
+                            //textfieldwidth: MediaQuery.of(context).size.width * 0.7,
                             hintText: "Inspector Name",
                             nameController: family_name,
                             inputFormatters: [
@@ -119,7 +119,7 @@ class _AddSubUserState extends State<AddSubUser> {
                             globalKey: _formkey2,
                           ), */
                           AppInputTextfield(
-                            textfieldwidth: MediaQuery.of(context).size.width * 0.7,
+                            //textfieldwidth: MediaQuery.of(context).size.width * 0.7,
                             hintText: "mobile Number",
                             nameController: mobileNumber,
                             errorMessage: "Please enter mobile number",

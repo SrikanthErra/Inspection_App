@@ -34,20 +34,19 @@ class DashboardView extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return CustomWarningAlert(
-              descriptions: "Are you sure you want to exit the application?",
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              Img: AssetPath.WarningBlueIcon,
-              onPressed1: () {
-                if (Platform.isAndroid) {
-                  SystemNavigator.pop();
-                } else if (Platform.isIOS) {
-                  exit(0);
-                }
-              },
-              version: AppConstants.version_number ?? ''
-            );
+                descriptions: "Are you sure you want to exit the application?",
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                Img: AssetPath.WarningBlueIcon,
+                onPressed1: () {
+                  if (Platform.isAndroid) {
+                    SystemNavigator.pop();
+                  } else if (Platform.isIOS) {
+                    exit(0);
+                  }
+                },
+                version: AppConstants.version_number ?? '');
           },
         );
         return Future.value(false);
@@ -98,15 +97,15 @@ class DashboardView extends StatelessWidget {
                         SizedBox(
                           height: 40,
                         ),
-                        SizedBox(
+                        Container(
                           height: 100,
                           width: 100,
+                          color: Colors.white,
                           child: CircleAvatar(
-                            //backgroundColor:  Colors.white,
-                            radius: 35,
+                            //radius: 35,
                             child: ClipRRect(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(45)),
+                                    BorderRadius.all(Radius.circular(100)),
                                 child: Image.asset(
                                   AssetPath.app_logo,
                                   fit: BoxFit.cover,
@@ -128,7 +127,7 @@ class DashboardView extends StatelessWidget {
                           },
                         ), */
                         SizedBox(
-                          height: 4,
+                          height: 6,
                         ),
                         AppInputText(
                             text: AppConstants.userName ?? '',
@@ -137,7 +136,10 @@ class DashboardView extends StatelessWidget {
                             weight: FontWeight.bold)
                       ],
                     )),
-                Expanded(flex: 3, child: DashboardGridView())
+                Expanded(flex: 3, child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  child: DashboardGridView(),
+                ))
               ],
             )
             /* : Column(
